@@ -1,0 +1,1436 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Simulador Tributario de Arrendamiento - Moche 2025 | Propuesta de Tesis</title>
+  <style>
+    :root {
+      --primary: #0f2b48;
+      --primary-light: #1e3a5f;
+      --primary-dark: #0a1c30;
+      --accent: #0284c7;
+      --accent-hover: #0369a1;
+      --secondary: #0d9488;
+      --sunat-blue: #004b8d;
+      --sunat-red: #c8102e;
+      --warning: #d97706;
+      --danger: #dc2626;
+      --success: #16a34a;
+      --bg: #f8fafc;
+      --surface: #ffffff;
+      --card-bg: #ffffff;
+      --text: #0f172a;
+      --text-muted: #475569;
+      --border: #e2e8f0;
+      --border-light: #f1f5f9;
+      --shadow-sm: 0 1px 3px rgba(0,0,0,0.06), 0 1px 2px rgba(0,0,0,0.04);
+      --shadow-md: 0 4px 6px -1px rgba(0,0,0,0.08), 0 2px 4px -2px rgba(0,0,0,0.05);
+      --shadow-lg: 0 10px 15px -3px rgba(0,0,0,0.08), 0 4px 6px -4px rgba(0,0,0,0.04);
+      --radius-sm: 6px;
+      --radius: 10px;
+      --radius-lg: 16px;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+      background-color: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+      scroll-behavior: smooth;
+    }
+
+    /* Top Bar */
+    .top-bar {
+      background: var(--primary-dark);
+      color: #94a3b8;
+      padding: 8px 24px;
+      font-size: 0.85rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 1px solid rgba(255,255,255,0.08);
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+    .top-bar-badge {
+      background: rgba(2, 132, 199, 0.25);
+      color: #38bdf8;
+      padding: 2px 8px;
+      border-radius: 4px;
+      font-weight: 700;
+      font-size: 0.75rem;
+      margin-right: 6px;
+    }
+
+    header {
+      background: var(--primary);
+      color: white;
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      box-shadow: var(--shadow-md);
+    }
+
+    .nav-container {
+      max-width: 1250px;
+      margin: 0 auto;
+      padding: 12px 24px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      text-decoration: none;
+      color: white;
+    }
+    .brand-icon {
+      background: linear-gradient(135deg, #0284c7, #0d9488);
+      width: 42px;
+      height: 42px;
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.35rem;
+    }
+    .brand-text h1 {
+      font-size: 1.15rem;
+      font-weight: 800;
+      letter-spacing: -0.02em;
+    }
+    .brand-text p {
+      font-size: 0.74rem;
+      color: #94a3b8;
+    }
+
+    nav ul {
+      display: flex;
+      list-style: none;
+      gap: 12px;
+      align-items: center;
+    }
+    nav a {
+      color: #cbd5e1;
+      text-decoration: none;
+      font-size: 0.88rem;
+      font-weight: 600;
+      padding: 6px 12px;
+      border-radius: var(--radius-sm);
+      transition: all 0.2s ease;
+    }
+    nav a:hover {
+      color: white;
+      background: rgba(255,255,255,0.12);
+    }
+    .btn-nav-sim {
+      background: #0284c7 !important;
+      color: white !important;
+    }
+    .btn-nav-sim:hover {
+      background: #0369a1 !important;
+    }
+
+    /* Hero Section */
+    .hero {
+      background: linear-gradient(135deg, #0a1c30 0%, #0f2b48 50%, #164e63 100%);
+      color: white;
+      padding: 60px 24px 70px;
+      position: relative;
+      overflow: hidden;
+    }
+    .hero-container {
+      max-width: 1250px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 1.25fr 0.75fr;
+      gap: 40px;
+      align-items: center;
+    }
+    .thesis-tag {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: rgba(56, 189, 248, 0.15);
+      border: 1px solid rgba(56, 189, 248, 0.3);
+      color: #38bdf8;
+      padding: 4px 12px;
+      border-radius: 20px;
+      font-size: 0.8rem;
+      font-weight: 700;
+      margin-bottom: 16px;
+    }
+    .hero-title {
+      font-size: 2.35rem;
+      line-height: 1.2;
+      font-weight: 800;
+      letter-spacing: -0.02em;
+      margin-bottom: 16px;
+    }
+    .hero-title span {
+      background: linear-gradient(90deg, #38bdf8, #2dd4bf);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+    .hero-desc {
+      font-size: 1rem;
+      color: #cbd5e1;
+      margin-bottom: 26px;
+      line-height: 1.6;
+    }
+    .hero-actions {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 10px 20px;
+      border-radius: var(--radius-sm);
+      font-size: 0.92rem;
+      font-weight: 700;
+      text-decoration: none;
+      cursor: pointer;
+      border: none;
+      transition: all 0.2s ease;
+    }
+    .btn-primary {
+      background: var(--accent);
+      color: white;
+      box-shadow: 0 4px 12px rgba(2,132,199,0.35);
+    }
+    .btn-primary:hover {
+      background: var(--accent-hover);
+      transform: translateY(-2px);
+    }
+    .btn-sunat {
+      background: var(--sunat-blue);
+      color: white;
+      border: 1px solid #38bdf8;
+    }
+    .btn-sunat:hover {
+      background: #003666;
+    }
+    .btn-secondary {
+      background: rgba(255,255,255,0.12);
+      color: white;
+      border: 1px solid rgba(255,255,255,0.25);
+    }
+    .btn-secondary:hover {
+      background: rgba(255,255,255,0.22);
+    }
+
+    .hero-card {
+      background: rgba(255,255,255,0.06);
+      backdrop-filter: blur(12px);
+      border: 1px solid rgba(255,255,255,0.16);
+      border-radius: var(--radius);
+      padding: 24px;
+    }
+    .hero-card h3 {
+      font-size: 1rem;
+      color: #e2e8f0;
+      margin-bottom: 16px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .stat-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 10px 0;
+      border-bottom: 1px solid rgba(255,255,255,0.08);
+      font-size: 0.88rem;
+    }
+    .stat-row:last-child {
+      border-bottom: none;
+    }
+    .stat-badge {
+      padding: 3px 8px;
+      border-radius: 4px;
+      font-weight: 700;
+      font-size: 0.85rem;
+    }
+    .stat-badge-danger { background: rgba(239,68,68,0.2); color: #fca5a5; }
+    .stat-badge-warning { background: rgba(245,158,11,0.2); color: #fcd34d; }
+    .stat-badge-success { background: rgba(16,185,129,0.2); color: #6ee7b7; }
+
+    /* Sections Container */
+    .container {
+      max-width: 1250px;
+      margin: 0 auto;
+      padding: 50px 24px;
+    }
+    .section-header {
+      text-align: center;
+      max-width: 800px;
+      margin: 0 auto 40px;
+    }
+    .section-tag {
+      display: inline-block;
+      text-transform: uppercase;
+      font-size: 0.75rem;
+      font-weight: 800;
+      letter-spacing: 0.08em;
+      color: var(--accent);
+      background: #e0f2fe;
+      padding: 3px 12px;
+      border-radius: 20px;
+      margin-bottom: 10px;
+    }
+    .section-title {
+      font-size: 1.95rem;
+      font-weight: 800;
+      color: var(--primary);
+      letter-spacing: -0.02em;
+      margin-bottom: 12px;
+    }
+    .section-subtitle {
+      font-size: 0.95rem;
+      color: var(--text-muted);
+    }
+
+    /* Grids */
+    .grid-2 { display: grid; grid-template-columns: repeat(2, 1fr); gap: 24px; }
+    .grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
+    .grid-4 { display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; }
+
+    /* Cards */
+    .card {
+      background: white;
+      border-radius: var(--radius);
+      border: 1px solid var(--border);
+      padding: 24px;
+      box-shadow: var(--shadow-sm);
+      transition: all 0.2s ease;
+    }
+    .card:hover {
+      box-shadow: var(--shadow-md);
+      transform: translateY(-2px);
+      border-color: #cbd5e1;
+    }
+    .card-icon {
+      width: 44px;
+      height: 44px;
+      border-radius: 10px;
+      background: #e0f2fe;
+      color: var(--accent);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.4rem;
+      margin-bottom: 16px;
+    }
+    .card h3 {
+      font-size: 1.1rem;
+      color: var(--primary);
+      margin-bottom: 8px;
+      font-weight: 700;
+    }
+    .card p {
+      font-size: 0.9rem;
+      color: var(--text-muted);
+      line-height: 1.55;
+    }
+
+    /* SUNAT UI Simulator Styles */
+    .sunat-simulator-card {
+      background: #ffffff;
+      border: 2px solid var(--sunat-blue);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow-lg);
+      overflow: hidden;
+      margin-bottom: 40px;
+    }
+    .sunat-header {
+      background: var(--sunat-blue);
+      color: white;
+      padding: 12px 20px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .sunat-logo {
+      font-weight: 900;
+      letter-spacing: 0.05em;
+      font-size: 1.15rem;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .sunat-logo span {
+      background: var(--sunat-red);
+      color: white;
+      padding: 2px 6px;
+      border-radius: 3px;
+      font-size: 0.75rem;
+    }
+    .sunat-user-info {
+      font-size: 0.8rem;
+      color: #bae6fd;
+    }
+    .sunat-subheader {
+      background: #f1f5f9;
+      padding: 10px 20px;
+      border-bottom: 1px solid var(--border);
+      font-size: 0.85rem;
+      font-weight: 600;
+      color: var(--primary);
+      display: flex;
+      justify-content: space-between;
+    }
+
+    .sunat-body {
+      padding: 28px 24px;
+      background: #fafafa;
+    }
+    .sunat-form-grid {
+      display: grid;
+      grid-template-columns: 1.1fr 0.9fr;
+      gap: 28px;
+    }
+    .sunat-box {
+      background: white;
+      border: 1px solid #cbd5e1;
+      border-radius: var(--radius-sm);
+      padding: 20px;
+    }
+    .sunat-box-title {
+      font-size: 0.92rem;
+      font-weight: 700;
+      color: var(--sunat-blue);
+      border-bottom: 2px solid var(--sunat-blue);
+      padding-bottom: 6px;
+      margin-bottom: 16px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .form-group {
+      margin-bottom: 14px;
+    }
+    .form-group label {
+      display: block;
+      font-size: 0.82rem;
+      font-weight: 700;
+      color: #334155;
+      margin-bottom: 5px;
+    }
+    .form-control {
+      width: 100%;
+      padding: 9px 12px;
+      font-size: 0.9rem;
+      border: 1px solid #cbd5e1;
+      border-radius: 4px;
+      outline: none;
+      transition: all 0.2s;
+      background: white;
+    }
+    .form-control:focus {
+      border-color: var(--sunat-blue);
+      box-shadow: 0 0 0 2px rgba(0,75,141,0.18);
+    }
+    .help-note {
+      font-size: 0.75rem;
+      color: var(--text-muted);
+      margin-top: 3px;
+    }
+
+    .sunat-summary-row {
+      display: flex;
+      justify-content: space-between;
+      padding: 8px 0;
+      border-bottom: 1px dashed #e2e8f0;
+      font-size: 0.86rem;
+    }
+    .sunat-summary-row.highlight {
+      background: #eff6ff;
+      padding: 10px 12px;
+      border-radius: 4px;
+      border-bottom: none;
+      font-weight: 700;
+      color: var(--sunat-blue);
+      margin-top: 8px;
+    }
+
+    .sunat-btn-bar {
+      display: flex;
+      justify-content: flex-end;
+      gap: 12px;
+      margin-top: 20px;
+      padding-top: 16px;
+      border-top: 1px solid #e2e8f0;
+    }
+    .btn-sunat-act {
+      background: #004b8d;
+      color: white;
+      padding: 9px 18px;
+      border: none;
+      border-radius: 4px;
+      font-weight: 700;
+      font-size: 0.86rem;
+      cursor: pointer;
+    }
+    .btn-sunat-act:hover { background: #003666; }
+    .btn-sunat-outline {
+      background: white;
+      color: #004b8d;
+      border: 1px solid #004b8d;
+      padding: 9px 18px;
+      border-radius: 4px;
+      font-weight: 700;
+      font-size: 0.86rem;
+      cursor: pointer;
+    }
+
+    /* Constancia Virtual (Ticket SUNAT) */
+    .receipt-modal {
+      display: none;
+      background: white;
+      border: 2px dashed #0284c7;
+      border-radius: var(--radius);
+      padding: 24px;
+      margin-top: 24px;
+      box-shadow: var(--shadow-md);
+      position: relative;
+    }
+    .receipt-modal.show {
+      display: block;
+      animation: fadeIn 0.3s ease;
+    }
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(-8px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    .receipt-header {
+      text-align: center;
+      border-bottom: 2px solid #0f172a;
+      padding-bottom: 12px;
+      margin-bottom: 16px;
+    }
+    .receipt-header h4 {
+      font-size: 1.15rem;
+      color: #004b8d;
+      font-weight: 900;
+    }
+    .receipt-header p {
+      font-size: 0.8rem;
+      color: #64748b;
+    }
+    .receipt-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+      font-size: 0.85rem;
+      margin-bottom: 16px;
+    }
+    .receipt-item label {
+      font-weight: 700;
+      color: #475569;
+      display: block;
+      font-size: 0.75rem;
+    }
+    .receipt-item span {
+      font-weight: 600;
+      color: #0f172a;
+    }
+    .receipt-footer {
+      background: #f8fafc;
+      border: 1px solid #e2e8f0;
+      border-radius: 4px;
+      padding: 10px;
+      font-size: 0.78rem;
+      color: #64748b;
+      text-align: center;
+    }
+
+    /* Cronograma de Vencimientos */
+    .cronograma-card {
+      background: white;
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 24px;
+      margin-top: 20px;
+    }
+    .digit-selector {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+      margin-bottom: 18px;
+    }
+    .digit-btn {
+      width: 40px;
+      height: 40px;
+      border: 1px solid #cbd5e1;
+      border-radius: 8px;
+      background: #f8fafc;
+      font-weight: 700;
+      color: var(--primary);
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    .digit-btn:hover { background: #e2e8f0; }
+    .digit-btn.active {
+      background: var(--accent);
+      color: white;
+      border-color: var(--accent);
+      box-shadow: 0 2px 6px rgba(2,132,199,0.3);
+    }
+
+    /* Empirical Chart Canvas */
+    .chart-box {
+      background: white;
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 24px;
+      box-shadow: var(--shadow-sm);
+    }
+    .chart-canvas {
+      width: 100%;
+      height: 220px;
+      display: block;
+    }
+
+    /* Methodology Tables */
+    .table-container {
+      overflow-x: auto;
+      border-radius: var(--radius-sm);
+      border: 1px solid var(--border);
+      background: white;
+      margin-top: 16px;
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.88rem;
+      text-align: left;
+    }
+    th {
+      background: #f1f5f9;
+      color: var(--primary);
+      font-weight: 700;
+      padding: 12px 16px;
+      border-bottom: 2px solid var(--border);
+    }
+    td {
+      padding: 11px 16px;
+      border-bottom: 1px solid var(--border);
+    }
+    tr:last-child td { border-bottom: none; }
+    tr:hover td { background: #f8fafc; }
+
+    /* Footer */
+    footer {
+      background: var(--primary-dark);
+      color: #94a3b8;
+      padding: 50px 24px 24px;
+      border-top: 1px solid rgba(255,255,255,0.08);
+      font-size: 0.85rem;
+    }
+    .footer-container {
+      max-width: 1250px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 2fr 1fr 1fr;
+      gap: 36px;
+      margin-bottom: 30px;
+    }
+    .footer-col h4 {
+      color: white;
+      font-size: 0.95rem;
+      margin-bottom: 14px;
+      font-weight: 700;
+    }
+    .footer-col ul { list-style: none; }
+    .footer-col li { margin-bottom: 6px; }
+    .footer-col a { color: #94a3b8; text-decoration: none; }
+    .footer-col a:hover { color: white; }
+    .footer-bottom {
+      max-width: 1250px;
+      margin: 0 auto;
+      padding-top: 20px;
+      border-top: 1px solid rgba(255,255,255,0.08);
+      display: flex;
+      justify-content: space-between;
+      font-size: 0.78rem;
+    }
+
+    @media (max-width: 900px) {
+      .hero-container, .sunat-form-grid, .grid-2, .grid-3, .grid-4, .footer-container {
+        grid-template-columns: 1fr;
+      }
+      nav ul { display: none; }
+      .hero-title { font-size: 1.85rem; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Top Bar Oficial -->
+  <div class="top-bar">
+    <div>
+      <span class="top-bar-badge">TESIS DE INVESTIGACIÓN</span>
+      <strong>Distrito de Moche, 2025</strong> | Conocimiento Tributario y Recaudación de 1.ª Categoría
+    </div>
+    <div>
+      Propuesta de Valor Técnica: <strong>Plataforma Educativa y Simulador Virtual para Arrendadores</strong>
+    </div>
+  </div>
+
+  <!-- Header -->
+  <header>
+    <div class="nav-container">
+      <a href="#inicio" class="brand">
+        <div class="brand-icon">🏛️</div>
+        <div class="brand-text">
+          <h1>MOCHE TRIBUTA</h1>
+          <p>Simulador y Portal Tributario de Arrendamiento</p>
+        </div>
+      </a>
+      <nav>
+        <ul>
+          <li><a href="#problematica">Problemática Moche</a></li>
+          <li><a href="#simulador" class="btn-nav-sim">Simulador SUNAT 1683</a></li>
+          <li><a href="#recibo">Recibo Arrendamiento</a></li>
+          <li><a href="#cronograma">Cronograma RUC</a></li>
+          <li><a href="#gradualidad">Multas y Gradualidad</a></li>
+          <li><a href="#tesis-sustentacion">Datos de Sustentación</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <!-- Hero Section -->
+  <section class="hero" id="inicio">
+    <div class="hero-container">
+      <div>
+        <div class="thesis-tag">
+          <span>🎓</span> Propuesta de Solución Aplicativa para Tesis Contable
+        </div>
+        <h2 class="hero-title">
+          Educación y Simulación Virtual para <span>Arrendadores de Moche</span>
+        </h2>
+        <p class="hero-desc">
+          Plataforma didáctica e interactiva diseñada como <strong>propuesta de valor</strong> para resolver la problemática diagnosticada en la investigación: el 53.33% de los arrendadores de Moche presenta un bajo conocimiento tributario y enfrenta barreras operativas al declarar el Formulario Virtual N.º 1683 ante la SUNAT.
+        </p>
+        <div class="hero-actions">
+          <a href="#simulador" class="btn btn-primary">
+            <span>💻</span> Iniciar Simulador Formulario 1683
+          </a>
+          <a href="#problematica" class="btn btn-secondary">
+            <span>📊</span> Ver Diagnóstico Empírico (N=150)
+          </a>
+          <a href="#tesis-sustentacion" class="btn btn-secondary">
+            <span>📑</span> Resumen para el Jurado
+          </a>
+        </div>
+      </div>
+
+      <div class="hero-card">
+        <h3><span>📌</span> Diagnóstico de la Muestra en Moche (N=150)</h3>
+        <div class="stat-row">
+          <span>Bajo Conocimiento Tributario</span>
+          <span class="stat-badge stat-badge-danger">53.33% (80 arrendadores)</span>
+        </div>
+        <div class="stat-row">
+          <span>Cumplimiento Medio / Bajo en Pagos</span>
+          <span class="stat-badge stat-badge-warning">93.34% (140 arrendadores)</span>
+        </div>
+        <div class="stat-row">
+          <span>Regresión Lineal Simple (ANOVA)</span>
+          <span class="stat-badge stat-badge-success">F = 831.821 (p &lt; 0.001)</span>
+        </div>
+        <div class="stat-row">
+          <span>Coeficiente Estandarizado (Beta)</span>
+          <span class="stat-badge stat-badge-success">β = 0.921 (Impacto Directo)</span>
+        </div>
+        <div class="stat-row">
+          <span>Solución Metodológica</span>
+          <span style="color: #38bdf8; font-weight: 700;">Simulador Web Libre</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Sección 1: La Problemática en el Distrito de Moche -->
+  <section class="container" id="problematica">
+    <div class="section-header">
+      <span class="section-tag">DIAGNÓSTICO DEL TRABAJO DE CAMPO</span>
+      <h2 class="section-title">La Realidad Problemática en Moche</h2>
+      <p class="section-subtitle">
+        Resultados descriptivos e inferenciales obtenidos de la muestra representativa de 150 propietarios y arrendadores durante el 2025.
+      </p>
+    </div>
+
+    <div class="grid-3">
+      <div class="chart-box">
+        <h4 style="color: var(--primary); margin-bottom: 4px;">Nivel de Conocimiento Tributario (OE1)</h4>
+        <p style="font-size: 0.8rem; color: var(--text-muted); margin-bottom: 12px;">Predominio del nivel bajo debido a desconocimiento normativo.</p>
+        <canvas id="chartConocimiento" class="chart-canvas"></canvas>
+        <div style="font-size: 0.78rem; color: var(--text-muted); margin-top: 8px; text-align: center;">
+          Bajo: <strong>53.3%</strong> | Medio: <strong>32.7%</strong> | Alto: <strong>14.0%</strong>
+        </div>
+      </div>
+
+      <div class="chart-box">
+        <h4 style="color: var(--primary); margin-bottom: 4px;">Cumplimiento en la Recaudación (OE2)</h4>
+        <p style="font-size: 0.8rem; color: var(--text-muted); margin-bottom: 12px;">Solo el 6.7% alcanza un cumplimiento óptimo en fecha.</p>
+        <canvas id="chartCumplimiento" class="chart-canvas"></canvas>
+        <div style="font-size: 0.78rem; color: var(--text-muted); margin-top: 8px; text-align: center;">
+          Bajo: <strong>42.7%</strong> | Medio: <strong>50.7%</strong> | Alto: <strong>6.7%</strong>
+        </div>
+      </div>
+
+      <div class="card" style="border-left: 4px solid var(--accent);">
+        <h4 style="color: var(--primary); margin-bottom: 8px;">Hallazgos Críticos Identificados</h4>
+        <ul style="padding-left: 18px; font-size: 0.86rem; color: var(--text-muted); line-height: 1.6;">
+          <li><strong>Temor a la Clave SOL:</strong> Percepción de complejidad técnica para acceder a SUNAT Operaciones en Línea.</li>
+          <li><strong>Confusión en la Tasa:</strong> Muchos ignoran que la tasa efectiva es sólo del 5% del alquiler bruto.</li>
+          <li><strong>Omisión de Recibos:</strong> Arrendamientos verbales sin entrega del Formulario 1683, perjudicando al inquilino (deducción 3 UIT).</li>
+          <li><strong>Sanciones Innecesarias:</strong> Desconocimiento de los plazos de vencimiento según el último dígito del RUC.</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- Sección 2: Simulador Interactivo Formulario Virtual 1683 -->
+  <section class="container" id="simulador" style="background: white; border-top: 1px solid var(--border); border-bottom: 1px solid var(--border);">
+    <div class="section-header">
+      <span class="section-tag">PROPUESTA DE VALOR APLICATIVA</span>
+      <h2 class="section-title">Simulador Práctico: Formulario Virtual N.º 1683</h2>
+      <p class="section-subtitle">
+        Entorno de práctica guiada idéntico a SUNAT Operaciones en Línea. Permite al arrendador de Moche aprender a declarar y liquidar su 5% sin riesgo de error ni multas reales.
+      </p>
+    </div>
+
+    <div class="sunat-simulator-card">
+      <div class="sunat-header">
+        <div class="sunat-logo">
+          SUNAT <span>SIMULADOR EDUCATIVO</span>
+        </div>
+        <div class="sunat-user-info">
+          RUC: 10XXXXXXXXX | Moche, Trujillo | <strong>Módulo de Práctica</strong>
+        </div>
+      </div>
+      <div class="sunat-subheader">
+        <div>Declaración y Pago de Renta de Primera Categoría (Arrendamiento)</div>
+        <div>Tributo: 3011 - RTA. 1RA CAT. CTA. PROP.</div>
+      </div>
+
+      <div class="sunat-body">
+        <div class="sunat-form-grid">
+          <!-- Formulario de Entrada -->
+          <div class="sunat-box">
+            <div class="sunat-box-title">
+              <span>1. Datos del Arrendamiento y Periodo</span>
+              <span style="font-size: 0.75rem; color: #64748b;">Paso a Paso</span>
+            </div>
+
+            <div class="form-group">
+              <label for="simPeriod">Periodo Tributario (Mes y Año):</label>
+              <select id="simPeriod" class="form-control" onchange="runSimulation()">
+                <option value="10-2025">Octubre 2025</option>
+                <option value="11-2025">Noviembre 2025</option>
+                <option value="12-2025">Diciembre 2025</option>
+                <option value="01-2026">Enero 2026</option>
+              </select>
+            </div>
+
+            <div class="grid-2">
+              <div class="form-group">
+                <label for="tenantDocType">Tipo Doc. Inquilino:</label>
+                <select id="tenantDocType" class="form-control" onchange="runSimulation()">
+                  <option value="DNI">DNI (Persona Natural)</option>
+                  <option value="RUC">RUC (Empresa/Negocio)</option>
+                </select>
+              </div>
+              <div class="form-group">
+                <label for="tenantDocNum">Número de Documento:</label>
+                <input type="text" id="tenantDocNum" class="form-control" value="45892134" maxlength="11" oninput="runSimulation()">
+              </div>
+            </div>
+
+            <div class="grid-2">
+              <div class="form-group">
+                <label for="simCurrency">Moneda:</label>
+                <select id="simCurrency" class="form-control" onchange="runSimulation()">
+                  <option value="PEN">Soles (S/)</option>
+                  <option value="USD">Dólares (US$)</option>
+                </select>
+              </div>
+              <div class="form-group">
+                <label for="simRent">Importe del Alquiler:</label>
+                <input type="number" id="simRent" class="form-control" value="1200" min="100" step="50" oninput="runSimulation()">
+              </div>
+            </div>
+
+            <div class="form-group" id="simTcGroup" style="display: none;">
+              <label for="simExchangeRate">Tipo de Cambio SBS (Venta):</label>
+              <input type="number" id="simExchangeRate" class="form-control" value="3.75" step="0.01" oninput="runSimulation()">
+              <div class="help-note">SUNAT convierte automáticamente en moneda nacional al tipo de cambio de la fecha.</div>
+            </div>
+
+            <div class="form-group">
+              <label for="propertyAddress">Ubicación del Predio en Alquiler (Moche):</label>
+              <input type="text" id="propertyAddress" class="form-control" value="Calle Bolognesi N.° 340, Moche Pueblo">
+              <div class="help-note">Identificación domiciliaria del predio arrendado.</div>
+            </div>
+          </div>
+
+          <!-- Liquidación en Vivo -->
+          <div class="sunat-box" style="display: flex; flex-direction: column; justify-content: space-between;">
+            <div>
+              <div class="sunat-box-title">
+                <span>2. Determinación de la Deuda Tributaria</span>
+                <span style="font-size: 0.75rem; color: #0284c7;">Cálculo Oficial</span>
+              </div>
+
+              <div class="sunat-summary-row">
+                <span>Renta Bruta Declarada:</span>
+                <strong id="simDispGross">S/ 1,200.00</strong>
+              </div>
+              <div class="sunat-summary-row">
+                <span>Deducción Legal (20%):</span>
+                <span id="simDispDed" style="color: var(--danger);">- S/ 240.00</span>
+              </div>
+              <div class="sunat-summary-row">
+                <span>Renta Neta Imponible (80%):</span>
+                <strong id="simDispNet">S/ 960.00</strong>
+              </div>
+              <div class="sunat-summary-row">
+                <span>Tasa Aplicable:</span>
+                <span>6.25% sobre R. Neta = <strong>5.0% Efectivo</strong></span>
+              </div>
+
+              <div class="sunat-summary-row highlight">
+                <span>TOTAL IMPUESTO A PAGAR:</span>
+                <span id="simDispTax" style="font-size: 1.25rem; color: var(--sunat-blue);">S/ 60.00</span>
+              </div>
+
+              <div style="font-size: 0.78rem; color: #64748b; margin-top: 14px; line-height: 1.5;">
+                ℹ️ <strong>Principio de Devengado:</strong> El impuesto debe declararse y pagarse mes a mes aunque el inquilino no haya cancelado aún la mensualidad.
+              </div>
+            </div>
+
+            <div class="sunat-btn-bar">
+              <button class="btn-sunat-outline" onclick="resetSimulation()">Limpiar</button>
+              <button class="btn-sunat-act" onclick="generateSimulatedReceipt()">
+                <span>✅</span> Validar y Generar Constancia
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Constancia Generada (Ticket Virtual) -->
+        <div id="simReceipt" class="receipt-modal">
+          <div class="receipt-header">
+            <h4>SUNAT - CONSTANCIA DE DECLARACIÓN Y PAGO</h4>
+            <p>GUÍA PAGO FÁCIL / FORMULARIO VIRTUAL N.º 1683 - ARRENDAMIENTO</p>
+            <div style="font-size: 0.75rem; color: #16a34a; font-weight: 700; margin-top: 4px;">
+              ✔️ OPERACIÓN SIMULADA CON ÉXITO - NÚMERO DE ORDEN: <span id="recOrderNum">98234105</span>
+            </div>
+          </div>
+
+          <div class="receipt-grid">
+            <div class="receipt-item">
+              <label>RUC DEL ARRENDADOR:</label>
+              <span>10459821345 - LOZANO VÁSQUEZ CARLOS</span>
+            </div>
+            <div class="receipt-item">
+              <label>PERIODO TRIBUTARIO:</label>
+              <span id="recPeriod">10/2025</span>
+            </div>
+            <div class="receipt-item">
+              <label>DOCUMENTO DEL INQUILINO:</label>
+              <span id="recTenant">DNI 45892134</span>
+            </div>
+            <div class="receipt-item">
+              <label>MONTO DEL ALQUILER:</label>
+              <span id="recRent">S/ 1,200.00</span>
+            </div>
+            <div class="receipt-item">
+              <label>IMPORTE PAGADO:</label>
+              <span id="recTax" style="color: var(--sunat-blue); font-weight: 800; font-size: 1.05rem;">S/ 60.00</span>
+            </div>
+            <div class="receipt-item">
+              <label>FECHA Y HORA DE PAGO:</label>
+              <span id="recDate">11/10/2026 19:12:00</span>
+            </div>
+          </div>
+
+          <div class="receipt-footer">
+            <strong>DOCUMENTO VÁLIDO PARA EL INQUILINO:</strong> Con este recibo, el arrendatario puede deducir el <strong>30% del alquiler</strong> como gasto en su declaración de Impuesto a la Renta de Trabajo (hasta 3 UIT anuales).
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Sección 3: Recibo por Arrendamiento y Deducción del Inquilino -->
+  <section class="container" id="recibo">
+    <div class="section-header">
+      <span class="section-tag">OBLIGACIÓN FORMAL Y BENEFICIO COMPARTIDO</span>
+      <h2 class="section-title">El Recibo por Arrendamiento como Comprobante Oficial</h2>
+      <p class="section-subtitle">
+        La entrega de la copia del Formulario 1683 formaliza la relación contractual y genera un incentivo tributario directo para ambas partes.
+      </p>
+    </div>
+
+    <div class="grid-2">
+      <div class="card">
+        <div class="card-icon">📄</div>
+        <h3>Para el Arrendador (Propietario de Moche)</h3>
+        <ul style="padding-left: 18px; font-size: 0.9rem; color: var(--text-muted); line-height: 1.6;">
+          <li>Acredita fehacientemente el cumplimiento de su obligación fiscal mensual ante SUNAT.</li>
+          <li>Evita la notificación de multas formales del Art. 176 numeral 1 (50% de la UIT).</li>
+          <li>Brinda respaldo bancario y financiero al demostrar ingresos lícitos justificados por rentas de capital.</li>
+          <li>Permite acogerse a los beneficios del desalojo express notarial (Ley N.º 30933) al contar con contratos bancarizados y formalizados.</li>
+        </ul>
+      </div>
+
+      <div class="card">
+        <div class="card-icon">💰</div>
+        <h3>Para el Arrendatario (Inquilino)</h3>
+        <ul style="padding-left: 18px; font-size: 0.9rem; color: var(--text-muted); line-height: 1.6;">
+          <li>Tiene derecho a <strong>deducir el 30% del alquiler pagado</strong> en el cálculo anual de su Impuesto a la Renta de 4ta y 5ta categoría.</li>
+          <li>Límite de deducción conjunta de hasta 3 UIT por gastos en alquiler, hoteles, restaurantes y servicios profesionales.</li>
+          <li>Para hacer efectiva la deducción, el pago debe haberse bancarizado si supera los S/ 2,000 o US$ 500 y el propietario debe entregar la constancia del Formulario 1683.</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- Sección 4: Cronograma de Vencimientos según RUC -->
+  <section class="container" id="cronograma" style="background: white; border-top: 1px solid var(--border); border-bottom: 1px solid var(--border);">
+    <div class="section-header">
+      <span class="section-tag">CONTROL DE PUNTUALIDAD FISCAL</span>
+      <h2 class="section-title">Cronograma de Vencimientos SUNAT</h2>
+      <p class="section-subtitle">
+        Uno de los factores que provocan multas en Moche es declarar fuera de fecha. Selecciona el último dígito de tu RUC para verificar tus plazos de vencimiento mensual.
+      </p>
+    </div>
+
+    <div class="cronograma-card" style="max-width: 800px; margin: 0 auto;">
+      <label style="font-weight: 700; font-size: 0.9rem; color: var(--primary); display: block; margin-bottom: 8px;">
+        Selecciona el último dígito de tu RUC (0 al 9):
+      </label>
+      <div class="digit-selector">
+        <button class="digit-btn active" onclick="selectRucDigit(0)">0</button>
+        <button class="digit-btn" onclick="selectRucDigit(1)">1</button>
+        <button class="digit-btn" onclick="selectRucDigit(2)">2</button>
+        <button class="digit-btn" onclick="selectRucDigit(3)">3</button>
+        <button class="digit-btn" onclick="selectRucDigit(4)">4</button>
+        <button class="digit-btn" onclick="selectRucDigit(5)">5</button>
+        <button class="digit-btn" onclick="selectRucDigit(6)">6</button>
+        <button class="digit-btn" onclick="selectRucDigit(7)">7</button>
+        <button class="digit-btn" onclick="selectRucDigit(8)">8</button>
+        <button class="digit-btn" onclick="selectRucDigit(9)">9</button>
+      </div>
+
+      <div style="background: #f8fafc; border: 1px solid var(--border); border-radius: var(--radius-sm); padding: 18px;">
+        <h4 style="color: var(--primary); margin-bottom: 8px;" id="cronDigitTitle">RUC terminado en dígito: 0</h4>
+        <p style="font-size: 0.88rem; color: var(--text-muted); margin-bottom: 14px;" id="cronDigitDesc">
+          Los contribuyentes con dígito 0 son habitualmente los primeros en el calendario oficial de SUNAT (alrededor del día 14 al 16 de cada mes posterior al devengo).
+        </p>
+        <div class="grid-3" style="text-align: center;">
+          <div style="background: white; padding: 12px; border-radius: 4px; border: 1px solid var(--border);">
+            <div style="font-size: 0.75rem; color: #64748b;">Periodo Octubre</div>
+            <div style="font-weight: 700; color: var(--accent); margin-top: 4px;" id="dateOct">14 Noviembre</div>
+          </div>
+          <div style="background: white; padding: 12px; border-radius: 4px; border: 1px solid var(--border);">
+            <div style="font-size: 0.75rem; color: #64748b;">Periodo Noviembre</div>
+            <div style="font-weight: 700; color: var(--accent); margin-top: 4px;" id="dateNov">15 Diciembre</div>
+          </div>
+          <div style="background: white; padding: 12px; border-radius: 4px; border: 1px solid var(--border);">
+            <div style="font-size: 0.75rem; color: #64748b;">Periodo Diciembre</div>
+            <div style="font-weight: 700; color: var(--accent); margin-top: 4px;" id="dateDec">16 Enero</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Sección 5: Simulador de Multas y Gradualidad -->
+  <section class="container" id="gradualidad">
+    <div class="section-header">
+      <span class="section-tag">RÉGIMEN SANCIONADOR</span>
+      <h2 class="section-title">Infracciones y Gradualidad (Art. 176 N.° 1)</h2>
+      <p class="section-subtitle">
+        Si omitiste presentar la declaración en fecha, la ley te permite reducir la sanción hasta en un 90% mediante subsanación voluntaria antes de cualquier requerimiento de SUNAT.
+      </p>
+    </div>
+
+    <div class="grid-2">
+      <div class="card">
+        <h3 style="color: var(--primary);">Simulador de Liquidación de Multa</h3>
+        <p style="font-size: 0.88rem; color: var(--text-muted); margin-bottom: 16px;">
+          Sanción por no presentar declaraciones dentro de los plazos establecidos (Código Tributario - Tablas I y II).
+        </p>
+
+        <div class="form-group">
+          <label for="gradUit">Valor de la UIT:</label>
+          <input type="number" id="gradUit" class="form-control" value="5150" oninput="runGradualidad()">
+        </div>
+
+        <div class="form-group">
+          <label for="gradMode">Tipo de Subsanación:</label>
+          <select id="gradMode" class="form-control" onchange="runGradualidad()">
+            <option value="vol_pago">Voluntaria CON pago del tributo (90% rebaja)</option>
+            <option value="vol_sin_pago">Voluntaria SIN pago del tributo (80% rebaja)</option>
+            <option value="ind_pago">Inducida con pago tras esquela SUNAT (60% rebaja)</option>
+            <option value="sin_rebaja">Notificado con orden de pago / coactiva (0% rebaja)</option>
+          </select>
+        </div>
+
+        <div style="background: #f8fafc; border: 1px solid var(--border); border-radius: var(--radius-sm); padding: 14px; margin-top: 14px;">
+          <div style="display: flex; justify-content: space-between; font-size: 0.85rem; margin-bottom: 6px;">
+            <span>Multa Base (50% de la UIT):</span>
+            <strong id="dispGradBase">S/ 2,575.00</strong>
+          </div>
+          <div style="display: flex; justify-content: space-between; font-size: 0.85rem; margin-bottom: 6px;">
+            <span>Rebaja por Gradualidad:</span>
+            <span id="dispGradPct" style="color: var(--success); font-weight: 700;">- 90%</span>
+          </div>
+          <div style="display: flex; justify-content: space-between; font-size: 0.85rem; margin-bottom: 8px;">
+            <span>Descuento aplicado:</span>
+            <span id="dispGradDisc" style="color: var(--success);">- S/ 2,317.50</span>
+          </div>
+          <div style="display: flex; justify-content: space-between; font-size: 1.05rem; font-weight: 800; border-top: 1px solid #cbd5e1; padding-top: 8px; color: var(--danger);">
+            <span>MULTA FINAL A PAGAR:</span>
+            <span id="dispGradFinal">S/ 258.00</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="card" style="display: flex; flex-direction: column; justify-content: space-between;">
+        <div>
+          <h3 style="color: var(--primary);">Recomendación Clave para Arrendadores de Moche</h3>
+          <p style="font-size: 0.88rem; color: var(--text-muted); line-height: 1.6; margin-bottom: 14px;">
+            En la investigación se constató que muchos arrendadores abandonan la formalización porque temen pagar multas de más de S/ 2,500.
+          </p>
+          <div style="background: #ecfdf5; border: 1px solid #a7f3d0; border-radius: var(--radius-sm); padding: 14px; color: #065f46; font-size: 0.85rem; line-height: 1.6;">
+            <strong>Estrategia de Prevención:</strong> Al subsanar voluntariamente la omisión presentando el Formulario 1683 y pagando la multa antes de que SUNAT emita una notificación, la sanción real se reduce a aproximadamente <strong>S/ 258</strong>, eliminando el riesgo de embargo de cuentas o cobranzas coactivas.
+          </div>
+        </div>
+
+        <div style="margin-top: 20px;">
+          <a href="#simulador" class="btn btn-primary" style="width: 100%; justify-content: center;">
+            Practicar en el Simulador Formulario 1683
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Sección 6: Ficha Metodológica de Tesis para la Sustentación -->
+  <section class="container" id="tesis-sustentacion" style="background: #f1f5f9; border-top: 1px solid var(--border);">
+    <div class="section-header">
+      <span class="section-tag">RESPALDO ACADÉMICO PARA EL JURADO</span>
+      <h2 class="section-title">Matriz de la Tesis: Moche 2025</h2>
+      <p class="section-subtitle">
+        Resumen técnico de los fundamentos, contrastes estadísticos y formulación de la recomendación de valor para la sustentación oral.
+      </p>
+    </div>
+
+    <div class="table-container">
+      <table>
+        <thead>
+          <tr>
+            <th>Elemento Metodológico</th>
+            <th>Contenido del Proyecto de Tesis</th>
+            <th>Evidencia Estadística / Justificación</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>Título de la Tesis</strong></td>
+            <td>Conocimiento tributario y su influencia en la recaudación del impuesto a la renta de primera categoría de Moche, 2025.</td>
+            <td>Línea de investigación en Tributación y Gestión Fiscal (UPAO).</td>
+          </tr>
+          <tr>
+            <td><strong>Problema General</strong></td>
+            <td>¿De qué manera influye el conocimiento tributario en la recaudación del impuesto a la renta de primera categoría de los arrendadores de Moche en el año 2025?</td>
+            <td>Justificado por el 53.33% de arrendadores con conocimiento bajo y vacíos en Clave SOL.</td>
+          </tr>
+          <tr>
+            <td><strong>Hipótesis General</strong></td>
+            <td>El conocimiento tributario influye de manera directa y significativa en la recaudación del impuesto a la renta de primera categoría en Moche.</td>
+            <td><strong>Regresión Lineal Simple:</strong> F(1, 148) = 831.821, p &lt; 0.001, β = 0.921. Se rechaza H0.</td>
+          </tr>
+          <tr>
+            <td><strong>Dimensiones Evaluadas</strong></td>
+            <td>
+              • Registro y obligaciones formales (t=24.379, p&lt;0.001)<br>
+              • Declaraciones tributarias (t=24.616, p&lt;0.001)<br>
+              • Capacitación y asesoría (t=15.023, p&lt;0.001)<br>
+              • Manejo de aplicativos SUNAT (t=14.755, p&lt;0.001)
+            </td>
+            <td>Todas las dimensiones son altamente significativas para explicar el cumplimiento tributario.</td>
+          </tr>
+          <tr>
+            <td><strong>Propuesta de Valor (Recomendación 6.4)</strong></td>
+            <td>Desarrollo e implementación de una <strong>Plataforma Web y Simulador Didáctico de Declaración</strong> para los arrendadores de Moche.</td>
+            <td>Resuelve directamente el temor tecnológico, reduce el error de llenado en el Formulario 1683 y fomenta la formalización voluntaria.</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer>
+    <div class="footer-container">
+      <div class="footer-col">
+        <h4>MOCHE TRIBUTA - PROYECTO DE INVESTIGACIÓN</h4>
+        <p style="line-height: 1.6; margin-bottom: 12px;">
+          Plataforma web de capacitación y simulación interactiva diseñada como propuesta de solución práctica ante la problemática del bajo conocimiento tributario en arrendadores del distrito de Moche.
+        </p>
+        <p style="font-size: 0.78rem; color: #64748b;">
+          Sustentación de Tesis Contable 2025-2026 | Trujillo, La Libertad, Perú.
+        </p>
+      </div>
+
+      <div class="footer-col">
+        <h4>ACCESOS DIRECTOS</h4>
+        <ul>
+          <li><a href="#problematica">Problemática Moche</a></li>
+          <li><a href="#simulador">Simulador Formulario 1683</a></li>
+          <li><a href="#recibo">Recibo por Arrendamiento</a></li>
+          <li><a href="#cronograma">Cronograma según RUC</a></li>
+          <li><a href="#gradualidad">Cálculo de Gradualidad</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-col">
+        <h4>ENLACES DE REFERENCIA</h4>
+        <ul>
+          <li><a href="https://www.sunat.gob.pe" target="_blank" rel="noopener">SUNAT Operaciones en Línea</a></li>
+          <li><a href="https://orientacion.sunat.gob.pe" target="_blank" rel="noopener">Orientación Renta 1ra Categoría</a></li>
+          <li><a href="https://www.mef.gob.pe" target="_blank" rel="noopener">Ministerio de Economía y Finanzas</a></li>
+          <li><a href="https://www.sbs.gob.pe" target="_blank" rel="noopener">Superintendencia de Banca y Seguros</a></li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="footer-bottom">
+      <div>© 2026 Moche Tributa. Propuesta de Valor y Simulador Web para Tesis de Grado.</div>
+      <div>Desarrollado para libre consulta y educación fiscal ciudadana.</div>
+    </div>
+  </footer>
+
+  <!-- Scripts -->
+  <script>
+    // --- 1. Simulador SUNAT Formulario 1683 ---
+    function runSimulation() {
+      const cur = document.getElementById('simCurrency').value;
+      const rentRaw = parseFloat(document.getElementById('simRent').value) || 0;
+      const tcGroup = document.getElementById('simTcGroup');
+
+      let rentPEN = rentRaw;
+      if (cur === 'USD') {
+        tcGroup.style.display = 'block';
+        const tc = parseFloat(document.getElementById('simExchangeRate').value) || 3.75;
+        rentPEN = rentRaw * tc;
+      } else {
+        tcGroup.style.display = 'none';
+      }
+
+      const ded = rentPEN * 0.20;
+      const net = rentPEN * 0.80;
+      const tax = Math.round(rentPEN * 0.05);
+
+      document.getElementById('simDispGross').textContent = 'S/ ' + rentPEN.toLocaleString('es-PE', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+      document.getElementById('simDispDed').textContent = '- S/ ' + ded.toLocaleString('es-PE', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+      document.getElementById('simDispNet').textContent = 'S/ ' + net.toLocaleString('es-PE', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+      document.getElementById('simDispTax').textContent = 'S/ ' + tax.toLocaleString('es-PE', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+    }
+
+    function generateSimulatedReceipt() {
+      const cur = document.getElementById('simCurrency').value;
+      const rentRaw = parseFloat(document.getElementById('simRent').value) || 0;
+      const docType = document.getElementById('tenantDocType').value;
+      const docNum = document.getElementById('tenantDocNum').value || '45892134';
+      const period = document.getElementById('simPeriod').value;
+      const tc = parseFloat(document.getElementById('simExchangeRate').value) || 3.75;
+
+      let rentPEN = rentRaw;
+      if (cur === 'USD') {
+        rentPEN = rentRaw * tc;
+      }
+      const tax = Math.round(rentPEN * 0.05);
+
+      document.getElementById('recPeriod').textContent = period;
+      document.getElementById('recTenant').textContent = `${docType} ${docNum}`;
+      document.getElementById('recRent').textContent = (cur === 'USD' ? 'US$ ' + rentRaw.toFixed(2) + ' (S/ ' + rentPEN.toFixed(2) + ')' : 'S/ ' + rentPEN.toFixed(2));
+      document.getElementById('recTax').textContent = 'S/ ' + tax.toFixed(2);
+      document.getElementById('recOrderNum').textContent = Math.floor(10000000 + Math.random() * 90000000);
+      
+      const now = new Date();
+      document.getElementById('recDate').textContent = now.toLocaleDateString('es-PE') + ' ' + now.toLocaleTimeString('es-PE');
+
+      const receiptEl = document.getElementById('simReceipt');
+      receiptEl.classList.add('show');
+      receiptEl.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+    }
+
+    function resetSimulation() {
+      document.getElementById('simRent').value = '1200';
+      document.getElementById('simReceipt').classList.remove('show');
+      runSimulation();
+    }
+
+    // --- 2. Cronograma de Vencimientos por RUC ---
+    const cronogramaData = {
+      0: { title: "RUC terminado en dígito: 0", desc: "Primeros en el cronograma oficial de SUNAT.", oct: "14 Noviembre", nov: "15 Diciembre", dec: "16 Enero" },
+      1: { title: "RUC terminado en dígito: 1", desc: "Segundo día del cronograma de vencimiento SUNAT.", oct: "15 Noviembre", nov: "16 Diciembre", dec: "17 Enero" },
+      2: { title: "RUC terminado en dígito: 2", desc: "Tercer día del cronograma de vencimiento SUNAT.", oct: "16 Noviembre", nov: "17 Diciembre", dec: "18 Enero" },
+      3: { title: "RUC terminado en dígito: 3", desc: "Cuarto día del cronograma de vencimiento SUNAT.", oct: "17 Noviembre", nov: "18 Diciembre", dec: "19 Enero" },
+      4: { title: "RUC terminado en dígito: 4", desc: "Quinto día del cronograma de vencimiento SUNAT.", oct: "18 Noviembre", nov: "19 Diciembre", dec: "20 Enero" },
+      5: { title: "RUC terminado en dígito: 5", desc: "Sexto día del cronograma de vencimiento SUNAT.", oct: "19 Noviembre", nov: "20 Diciembre", dec: "21 Enero" },
+      6: { title: "RUC terminado en dígito: 6", desc: "Séptimo día del cronograma de vencimiento SUNAT.", oct: "20 Noviembre", nov: "21 Diciembre", dec: "22 Enero" },
+      7: { title: "RUC terminado en dígito: 7", desc: "Octavo día del cronograma de vencimiento SUNAT.", oct: "21 Noviembre", nov: "22 Diciembre", dec: "23 Enero" },
+      8: { title: "RUC terminado en dígito: 8", desc: "Noveno día del cronograma de vencimiento SUNAT.", oct: "22 Noviembre", nov: "23 Diciembre", dec: "24 Enero" },
+      9: { title: "RUC terminado en dígito: 9", desc: "Último grupo en el cronograma ordinario de SUNAT.", oct: "23 Noviembre", nov: "24 Diciembre", dec: "25 Enero" }
+    };
+
+    function selectRucDigit(digit) {
+      document.querySelectorAll('.digit-btn').forEach((btn, idx) => {
+        btn.classList.toggle('active', idx === digit);
+      });
+      const data = cronogramaData[digit];
+      document.getElementById('cronDigitTitle').textContent = data.title;
+      document.getElementById('cronDigitDesc').textContent = data.desc;
+      document.getElementById('dateOct').textContent = data.oct;
+      document.getElementById('dateNov').textContent = data.nov;
+      document.getElementById('dateDec').textContent = data.dec;
+    }
+
+    // --- 3. Simulador de Gradualidad ---
+    function runGradualidad() {
+      const uit = parseFloat(document.getElementById('gradUit').value) || 5150;
+      const base = uit * 0.50;
+      const mode = document.getElementById('gradMode').value;
+
+      let rebaja = 0.90;
+      let rebajaLabel = '- 90%';
+
+      if (mode === 'vol_sin_pago') { rebaja = 0.80; rebajaLabel = '- 80%'; }
+      else if (mode === 'ind_pago') { rebaja = 0.60; rebajaLabel = '- 60%'; }
+      else if (mode === 'sin_rebaja') { rebaja = 0.00; rebajaLabel = '0%'; }
+
+      const desc = base * rebaja;
+      const fin = Math.round(base - desc);
+
+      document.getElementById('dispGradBase').textContent = 'S/ ' + base.toLocaleString('es-PE', { minimumFractionDigits: 2 });
+      document.getElementById('dispGradPct').textContent = rebajaLabel;
+      document.getElementById('dispGradDisc').textContent = '- S/ ' + desc.toLocaleString('es-PE', { minimumFractionDigits: 2 });
+      document.getElementById('dispGradFinal').textContent = 'S/ ' + fin.toLocaleString('es-PE', { minimumFractionDigits: 2 });
+    }
+
+    // --- 4. Renderizado de Gráficos Estadísticos de la Tesis en Canvas Puro ---
+    function drawCharts() {
+      // Gráfico 1: Conocimiento Tributario (Bajo: 53.33%, Medio: 32.67%, Alto: 14.00%)
+      const c1 = document.getElementById('chartConocimiento');
+      if (c1) {
+        c1.width = c1.parentElement.clientWidth - 48;
+        c1.height = 200;
+        const ctx1 = c1.getContext('2d');
+        const total = 150;
+        const data1 = [
+          { label: 'Bajo (53.3%)', count: 80, color: '#ef4444' },
+          { label: 'Medio (32.7%)', count: 49, color: '#f59e0b' },
+          { label: 'Alto (14.0%)', count: 21, color: '#10b981' }
+        ];
+
+        const barWidth = 45;
+        const startX = 30;
+        const gap = (c1.width - 60 - (barWidth * 3)) / 2;
+        const maxH = 130;
+
+        ctx1.clearRect(0, 0, c1.width, c1.height);
+
+        data1.forEach((d, i) => {
+          const x = startX + i * (barWidth + gap);
+          const h = (d.count / total) * maxH * 1.6;
+          const y = 160 - h;
+
+          ctx1.fillStyle = d.color;
+          ctx1.beginPath();
+          ctx1.roundRect(x, y, barWidth, h, [6, 6, 0, 0]);
+          ctx1.fill();
+
+          ctx1.fillStyle = '#0f172a';
+          ctx1.font = 'bold 11px system-ui';
+          ctx1.textAlign = 'center';
+          ctx1.fillText(d.count + ' arr.', x + barWidth / 2, y - 6);
+
+          ctx1.fillStyle = '#64748b';
+          ctx1.font = '10px system-ui';
+          ctx1.fillText(d.label, x + barWidth / 2, 180);
+        });
+      }
+
+      // Gráfico 2: Cumplimiento Recaudación (Bajo: 42.67%, Medio: 50.67%, Alto: 6.67%)
+      const c2 = document.getElementById('chartCumplimiento');
+      if (c2) {
+        c2.width = c2.parentElement.clientWidth - 48;
+        c2.height = 200;
+        const ctx2 = c2.getContext('2d');
+        const data2 = [
+          { label: 'Bajo (42.7%)', count: 64, color: '#ef4444' },
+          { label: 'Medio (50.7%)', count: 76, color: '#f59e0b' },
+          { label: 'Alto (6.7%)', count: 10, color: '#10b981' }
+        ];
+
+        const barWidth = 45;
+        const startX = 30;
+        const gap = (c2.width - 60 - (barWidth * 3)) / 2;
+        const maxH = 130;
+
+        ctx2.clearRect(0, 0, c2.width, c2.height);
+
+        data2.forEach((d, i) => {
+          const x = startX + i * (barWidth + gap);
+          const h = (d.count / 150) * maxH * 1.6;
+          const y = 160 - h;
+
+          ctx2.fillStyle = d.color;
+          ctx2.beginPath();
+          ctx2.roundRect(x, y, barWidth, h, [6, 6, 0, 0]);
+          ctx2.fill();
+
+          ctx2.fillStyle = '#0f172a';
+          ctx2.font = 'bold 11px system-ui';
+          ctx2.textAlign = 'center';
+          ctx2.fillText(d.count + ' arr.', x + barWidth / 2, y - 6);
+
+          ctx2.fillStyle = '#64748b';
+          ctx2.font = '10px system-ui';
+          ctx2.fillText(d.label, x + barWidth / 2, 180);
+        });
+      }
+    }
+
+    // Inicialización
+    runSimulation();
+    runGradualidad();
+    window.addEventListener('load', drawCharts);
+    window.addEventListener('resize', drawCharts);
+  </script>
+</body>
+</html>
