@@ -1,0 +1,1426 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Moche Tributa - Guía y Simulador para Arrendadores</title>
+  <style>
+    :root {
+      --primary: #ea580c;         /* Naranja principal institucional */
+      --primary-dark: #c2410c;    /* Naranja oscuro para hover y cabeceras */
+      --primary-light: #fb923c;   /* Naranja claro */
+      --primary-subtle: #fff7ed;  /* Fondo suave naranja/blanco */
+      --primary-border: #fed7aa;  /* Borde naranja suave */
+      --sunat-orange: #ea580c;
+      --white: #ffffff;
+      --bg: #fcfcfc;
+      --surface: #ffffff;
+      --text: #1e293b;            /* Gris oscuro de alta legibilidad */
+      --text-muted: #64748b;
+      --border: #e2e8f0;
+      --success: #16a34a;
+      --danger: #dc2626;
+      --warning: #d97706;
+      --shadow-sm: 0 1px 3px rgba(234, 88, 12, 0.08), 0 1px 2px rgba(0,0,0,0.04);
+      --shadow-md: 0 4px 8px -1px rgba(234, 88, 12, 0.12), 0 2px 4px -2px rgba(0,0,0,0.06);
+      --shadow-lg: 0 10px 20px -3px rgba(234, 88, 12, 0.15), 0 4px 6px -4px rgba(0,0,0,0.05);
+      --radius-sm: 6px;
+      --radius: 12px;
+      --radius-lg: 18px;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+      background-color: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+    }
+
+    /* Barra Superior Informativa */
+    .top-strip {
+      background: var(--primary-dark);
+      color: #ffedd5;
+      padding: 8px 24px;
+      font-size: 0.85rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+    .top-strip strong {
+      color: #ffffff;
+    }
+    .top-badge {
+      background: rgba(255,255,255,0.2);
+      color: #ffffff;
+      padding: 2px 8px;
+      border-radius: 4px;
+      font-size: 0.75rem;
+      font-weight: 700;
+    }
+
+    /* Cabecera Principal */
+    header {
+      background: var(--white);
+      border-bottom: 2px solid var(--primary-border);
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.03);
+    }
+    .header-container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 12px 24px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 16px;
+    }
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      text-decoration: none;
+      color: var(--text);
+    }
+    .brand-icon {
+      background: linear-gradient(135deg, var(--primary), #f97316);
+      color: white;
+      width: 44px;
+      height: 44px;
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.5rem;
+      box-shadow: 0 4px 10px rgba(234, 88, 12, 0.3);
+    }
+    .brand-title {
+      font-size: 1.25rem;
+      font-weight: 800;
+      color: var(--primary-dark);
+      line-height: 1.1;
+    }
+    .brand-subtitle {
+      font-size: 0.78rem;
+      color: var(--text-muted);
+      font-weight: 500;
+    }
+
+    /* Barra de Pestañas Principales (Tabs) */
+    .nav-tabs {
+      background: var(--primary-subtle);
+      border-bottom: 1px solid var(--primary-border);
+    }
+    .tabs-container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 24px;
+      display: flex;
+      gap: 6px;
+      overflow-x: auto;
+      scrollbar-width: none;
+    }
+    .tabs-container::-webkit-scrollbar {
+      display: none;
+    }
+    .nav-tab-btn {
+      background: none;
+      border: none;
+      padding: 14px 18px;
+      font-size: 0.92rem;
+      font-weight: 700;
+      color: #7c2d12;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      border-bottom: 3px solid transparent;
+      white-space: nowrap;
+      transition: all 0.2s ease;
+    }
+    .nav-tab-btn:hover {
+      color: var(--primary);
+      background: rgba(234, 88, 12, 0.06);
+    }
+    .nav-tab-btn.active {
+      color: var(--primary);
+      border-bottom-color: var(--primary);
+      background: var(--white);
+      border-top-left-radius: 6px;
+      border-top-right-radius: 6px;
+    }
+
+    /* Contenedor de Vistas (Pestañas) */
+    main {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 32px 24px 60px;
+      min-height: calc(100vh - 280px);
+    }
+    .tab-view {
+      display: none;
+      animation: fadeIn 0.25s ease-in-out;
+    }
+    .tab-view.active {
+      display: block;
+    }
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(6px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* Estilos Generales de Contenido */
+    .view-header {
+      margin-bottom: 28px;
+      padding-bottom: 16px;
+      border-bottom: 1px solid var(--border);
+    }
+    .view-tag {
+      display: inline-block;
+      text-transform: uppercase;
+      font-size: 0.72rem;
+      font-weight: 800;
+      letter-spacing: 0.06em;
+      color: var(--primary);
+      background: var(--primary-subtle);
+      border: 1px solid var(--primary-border);
+      padding: 4px 10px;
+      border-radius: 20px;
+      margin-bottom: 8px;
+    }
+    .view-title {
+      font-size: 1.85rem;
+      font-weight: 800;
+      color: var(--primary-dark);
+      line-height: 1.25;
+      margin-bottom: 6px;
+    }
+    .view-desc {
+      font-size: 0.95rem;
+      color: var(--text-muted);
+      max-width: 850px;
+    }
+
+    /* Botones */
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 10px 20px;
+      border-radius: var(--radius-sm);
+      font-size: 0.9rem;
+      font-weight: 700;
+      text-decoration: none;
+      cursor: pointer;
+      border: none;
+      transition: all 0.2s ease;
+    }
+    .btn-primary {
+      background: var(--primary);
+      color: white;
+      box-shadow: 0 4px 12px rgba(234, 88, 12, 0.28);
+    }
+    .btn-primary:hover {
+      background: var(--primary-dark);
+      transform: translateY(-1px);
+    }
+    .btn-outline {
+      background: white;
+      color: var(--primary);
+      border: 1px solid var(--primary);
+    }
+    .btn-outline:hover {
+      background: var(--primary-subtle);
+    }
+
+    /* Tarjetas y Rejillas */
+    .grid-2 {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 24px;
+    }
+    .grid-3 {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 20px;
+    }
+    .card {
+      background: var(--white);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 24px;
+      box-shadow: var(--shadow-sm);
+      transition: all 0.2s ease;
+    }
+    .card:hover {
+      box-shadow: var(--shadow-md);
+      border-color: var(--primary-border);
+    }
+    .card-icon {
+      width: 44px;
+      height: 44px;
+      border-radius: 10px;
+      background: var(--primary-subtle);
+      color: var(--primary);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.4rem;
+      margin-bottom: 14px;
+    }
+    .card h3 {
+      font-size: 1.1rem;
+      font-weight: 700;
+      color: var(--text);
+      margin-bottom: 8px;
+    }
+    .card p {
+      font-size: 0.9rem;
+      color: var(--text-muted);
+      line-height: 1.55;
+    }
+
+    /* Destacados (Banners Naranja) */
+    .hero-banner {
+      background: linear-gradient(135deg, #fff7ed 0%, #ffedd5 100%);
+      border: 1px solid var(--primary-border);
+      border-radius: var(--radius-lg);
+      padding: 32px;
+      margin-bottom: 32px;
+      display: grid;
+      grid-template-columns: 1.2fr 0.8fr;
+      gap: 30px;
+      align-items: center;
+    }
+    .hero-banner h2 {
+      font-size: 2rem;
+      font-weight: 800;
+      color: var(--primary-dark);
+      margin-bottom: 12px;
+      line-height: 1.2;
+    }
+    .hero-banner p {
+      font-size: 0.95rem;
+      color: #7c2d12;
+      margin-bottom: 20px;
+    }
+    .quick-calc-box {
+      background: white;
+      border: 2px solid var(--primary);
+      border-radius: var(--radius);
+      padding: 22px;
+      box-shadow: var(--shadow-md);
+    }
+
+    /* Formularios y Controles */
+    .form-group {
+      margin-bottom: 16px;
+    }
+    .form-group label {
+      display: block;
+      font-size: 0.84rem;
+      font-weight: 700;
+      color: var(--text);
+      margin-bottom: 6px;
+    }
+    .form-control {
+      width: 100%;
+      padding: 10px 14px;
+      font-size: 0.92rem;
+      border: 1px solid #cbd5e1;
+      border-radius: var(--radius-sm);
+      outline: none;
+      transition: all 0.2s;
+      background: white;
+    }
+    .form-control:focus {
+      border-color: var(--primary);
+      box-shadow: 0 0 0 3px rgba(234, 88, 12, 0.15);
+    }
+    .form-hint {
+      font-size: 0.78rem;
+      color: var(--text-muted);
+      margin-top: 4px;
+    }
+
+    /* SIMULADOR TIPO SUNAT (En estilo Naranja Institucional) */
+    .sunat-simulator {
+      background: white;
+      border: 2px solid var(--primary);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow-lg);
+      overflow: hidden;
+      margin-bottom: 28px;
+    }
+    .sunat-top-bar {
+      background: var(--primary);
+      color: white;
+      padding: 14px 20px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+    .sunat-title {
+      font-weight: 800;
+      font-size: 1.05rem;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .sunat-title span {
+      background: white;
+      color: var(--primary);
+      padding: 2px 8px;
+      border-radius: 4px;
+      font-size: 0.72rem;
+      font-weight: 900;
+    }
+    .sunat-meta {
+      font-size: 0.8rem;
+      color: #ffedd5;
+    }
+    .sunat-subbar {
+      background: var(--primary-subtle);
+      border-bottom: 1px solid var(--primary-border);
+      padding: 10px 20px;
+      font-size: 0.85rem;
+      font-weight: 700;
+      color: var(--primary-dark);
+      display: flex;
+      justify-content: space-between;
+    }
+
+    .sunat-content {
+      padding: 26px;
+      background: #fafafa;
+    }
+    .sunat-grid {
+      display: grid;
+      grid-template-columns: 1.15fr 0.85fr;
+      gap: 24px;
+    }
+    .sunat-panel {
+      background: white;
+      border: 1px solid #cbd5e1;
+      border-radius: var(--radius-sm);
+      padding: 20px;
+    }
+    .sunat-panel-title {
+      font-size: 0.92rem;
+      font-weight: 800;
+      color: var(--primary-dark);
+      border-bottom: 2px solid var(--primary);
+      padding-bottom: 6px;
+      margin-bottom: 16px;
+      display: flex;
+      justify-content: space-between;
+    }
+
+    .receipt-row {
+      display: flex;
+      justify-content: space-between;
+      padding: 9px 0;
+      border-bottom: 1px dashed #e2e8f0;
+      font-size: 0.88rem;
+    }
+    .receipt-row.total {
+      background: var(--primary-subtle);
+      padding: 12px 14px;
+      border-radius: var(--radius-sm);
+      border-bottom: none;
+      font-weight: 800;
+      color: var(--primary-dark);
+      font-size: 1.1rem;
+      margin-top: 10px;
+    }
+
+    /* Ticket / Constancia Virtual */
+    .ticket-container {
+      display: none;
+      background: white;
+      border: 2px dashed var(--primary);
+      border-radius: var(--radius);
+      padding: 24px;
+      margin-top: 24px;
+      animation: fadeIn 0.3s ease;
+    }
+    .ticket-container.show {
+      display: block;
+    }
+    .ticket-header {
+      text-align: center;
+      border-bottom: 2px solid var(--text);
+      padding-bottom: 12px;
+      margin-bottom: 16px;
+    }
+    .ticket-header h4 {
+      font-size: 1.15rem;
+      font-weight: 800;
+      color: var(--primary-dark);
+    }
+    .ticket-header p {
+      font-size: 0.8rem;
+      color: var(--text-muted);
+    }
+    .ticket-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+      font-size: 0.85rem;
+      margin-bottom: 16px;
+    }
+    .ticket-item label {
+      font-size: 0.72rem;
+      font-weight: 700;
+      color: var(--text-muted);
+      display: block;
+    }
+    .ticket-item span {
+      font-weight: 700;
+      color: var(--text);
+    }
+    .ticket-notice {
+      background: var(--primary-subtle);
+      border: 1px solid var(--primary-border);
+      border-radius: var(--radius-sm);
+      padding: 12px;
+      font-size: 0.82rem;
+      color: #7c2d12;
+      text-align: center;
+    }
+
+    /* Cronograma por Dígitos */
+    .digit-row {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+      margin-bottom: 20px;
+    }
+    .digit-circle {
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      border: 2px solid var(--primary-border);
+      background: white;
+      color: var(--primary-dark);
+      font-size: 1.05rem;
+      font-weight: 800;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.2s;
+    }
+    .digit-circle:hover {
+      background: var(--primary-subtle);
+      border-color: var(--primary);
+    }
+    .digit-circle.active {
+      background: var(--primary);
+      color: white;
+      border-color: var(--primary-dark);
+      transform: scale(1.08);
+      box-shadow: 0 4px 10px rgba(234, 88, 12, 0.3);
+    }
+
+    /* Preguntas Frecuentes (Acordeón Simple) */
+    .faq-item {
+      background: white;
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      margin-bottom: 14px;
+      overflow: hidden;
+      transition: all 0.2s;
+    }
+    .faq-question {
+      padding: 16px 20px;
+      font-weight: 700;
+      font-size: 0.96rem;
+      color: var(--primary-dark);
+      cursor: pointer;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background: white;
+    }
+    .faq-question:hover {
+      background: var(--primary-subtle);
+    }
+    .faq-answer {
+      padding: 0 20px 16px;
+      font-size: 0.9rem;
+      color: var(--text-muted);
+      line-height: 1.6;
+      border-top: 1px solid var(--border);
+      padding-top: 14px;
+    }
+
+    /* Pie de Página */
+    footer {
+      background: #1e293b;
+      color: #94a3b8;
+      padding: 40px 24px 20px;
+      font-size: 0.85rem;
+      border-top: 4px solid var(--primary);
+    }
+    .footer-container {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 2fr 1fr 1fr;
+      gap: 36px;
+      margin-bottom: 30px;
+    }
+    .footer-col h4 {
+      color: white;
+      font-size: 0.95rem;
+      margin-bottom: 12px;
+      font-weight: 800;
+    }
+    .footer-col ul {
+      list-style: none;
+    }
+    .footer-col li {
+      margin-bottom: 6px;
+    }
+    .footer-col a {
+      color: #cbd5e1;
+      text-decoration: none;
+    }
+    .footer-col a:hover {
+      color: var(--primary-light);
+    }
+    .footer-bottom {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding-top: 18px;
+      border-top: 1px solid #334155;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 10px;
+      font-size: 0.78rem;
+    }
+
+    @media (max-width: 850px) {
+      .grid-2, .grid-3, .sunat-grid, .hero-banner, .footer-container {
+        grid-template-columns: 1fr;
+      }
+      .nav-tab-btn {
+        padding: 12px 14px;
+        font-size: 0.85rem;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Barra Superior -->
+  <div class="top-strip">
+    <div>
+      <span class="top-badge">GUÍA OFICIAL</span>
+      Portal Práctico para Propietarios y Arrendadores | <strong>Distrito de Moche</strong>
+    </div>
+    <div>Tasa Única Legal: <strong>5.0% Efectivo</strong> sobre el alquiler mensual</div>
+  </div>
+
+  <!-- Cabecera -->
+  <header>
+    <div class="header-container">
+      <a href="#" class="brand" onclick="switchTab('inicio')">
+        <div class="brand-icon">🏠</div>
+        <div>
+          <div class="brand-title">MOCHE TRIBUTA</div>
+          <div class="brand-subtitle">Portal de Aprendizaje y Simulación de Alquileres</div>
+        </div>
+      </a>
+      <div style="font-size: 0.82rem; color: var(--text-muted);">
+        Aprende tus deberes, calcula tu 5% y practica tu declaración sin multas
+      </div>
+    </div>
+
+    <!-- Pestañas de Navegación (Tabs) -->
+    <nav class="nav-tabs">
+      <div class="tabs-container">
+        <button class="nav-tab-btn active" id="tab-btn-inicio" onclick="switchTab('inicio')">
+          <span>🏠</span> Inicio y Guía Básica
+        </button>
+        <button class="nav-tab-btn" id="tab-btn-simulador" onclick="switchTab('simulador')">
+          <span>💻</span> Simulador Formulario 1683
+        </button>
+        <button class="nav-tab-btn" id="tab-btn-calculadora" onclick="switchTab('calculadora')">
+          <span>🧮</span> Calculadora de Impuesto y Multas
+        </button>
+        <button class="nav-tab-btn" id="tab-btn-recibo" onclick="switchTab('recibo')">
+          <span>📄</span> Recibo de Alquiler
+        </button>
+        <button class="nav-tab-btn" id="tab-btn-cronograma" onclick="switchTab('cronograma')">
+          <span>📅</span> Vencimientos por RUC
+        </button>
+        <button class="nav-tab-btn" id="tab-btn-faq" onclick="switchTab('faq')">
+          <span>❓</span> Preguntas Frecuentes
+        </button>
+      </div>
+    </nav>
+  </header>
+
+  <!-- Contenido de las Pestañas -->
+  <main>
+
+    <!-- ==================== PESTAÑA 1: INICIO Y GUÍA BÁSICA ==================== -->
+    <section id="view-inicio" class="tab-view active">
+      <div class="hero-banner">
+        <div>
+          <span class="view-tag">CULTURA TRIBUTARIA CLARA</span>
+          <h2>Alquilar en Moche de Forma Segura y Sin Miedo al Fisco</h2>
+          <p>
+            Muchos propietarios en Moche alquilan con contratos verbales o temen declarar por pensar que los trámites de SUNAT son difíciles o costosos. 
+            Aquí aprenderás de manera simple cómo cumplir con el pago del 5%, proteger tu propiedad y evitar multas.
+          </p>
+          <div style="display: flex; gap: 12px; flex-wrap: wrap;">
+            <button class="btn btn-primary" onclick="switchTab('simulador')">
+              <span>💻</span> Practicar en el Simulador 1683
+            </button>
+            <button class="btn btn-outline" onclick="switchTab('calculadora')">
+              <span>🧮</span> Calcular mi Impuesto Mensual
+            </button>
+          </div>
+        </div>
+
+        <div class="quick-calc-box">
+          <h3 style="font-size: 1.05rem; color: var(--primary-dark); margin-bottom: 12px; display: flex; align-items: center; gap: 8px;">
+            <span>⚡</span> ¿Cuánto pagaré por mi alquiler?
+          </h3>
+          <div class="form-group">
+            <label for="homeRentInput">Si cobras de alquiler mensual:</label>
+            <input type="number" id="homeRentInput" class="form-control" value="1000" min="100" step="50" oninput="calcQuickHome()">
+          </div>
+          <div style="background: var(--primary-subtle); padding: 14px; border-radius: var(--radius-sm); border: 1px solid var(--primary-border);">
+            <div style="display: flex; justify-content: space-between; font-size: 0.85rem; margin-bottom: 4px;">
+              <span>Tasa de ley (5% directo):</span>
+              <strong style="color: var(--primary-dark);">5%</strong>
+            </div>
+            <div style="display: flex; justify-content: space-between; font-size: 1.15rem; font-weight: 800; color: var(--primary);">
+              <span>Impuesto a pagar:</span>
+              <span id="homeTaxOutput">S/ 50.00</span>
+            </div>
+          </div>
+          <div style="font-size: 0.76rem; color: var(--text-muted); margin-top: 8px;">
+            * Por cada S/ 1,000 cobrados, pagas solo S/ 50 al mes y formalizas tu patrimonio.
+          </div>
+        </div>
+      </div>
+
+      <div class="view-header" style="border-bottom: none; margin-bottom: 16px;">
+        <h3 style="font-size: 1.4rem; color: var(--primary-dark); font-weight: 800;">
+          3 Reglas de Oro que Todo Arrendador Debe Saber
+        </h3>
+      </div>
+
+      <div class="grid-3">
+        <div class="card">
+          <div class="card-icon">1️⃣</div>
+          <h3>La Tasa Real es del 5%</h3>
+          <p>
+            Aunque la ley menciona el 6.25% sobre la renta neta, existe un descuento automático del 20%. Esto significa que en la práctica <strong>solo pagas el 5% del alquiler cobrado</strong>. No requieres contador para este cálculo directo.
+          </p>
+        </div>
+
+        <div class="card">
+          <div class="card-icon">2️⃣</div>
+          <h3>El Deber Nace Mes a Mes</h3>
+          <p>
+            El impuesto se rige por el principio del devengado: la obligación tributaria nace por cada mes pactado en el contrato, independiente de si el inquilino se demoró en pagar. Mantener los pagos al día evita intereses moratorios.
+          </p>
+        </div>
+
+        <div class="card">
+          <div class="card-icon">3️⃣</div>
+          <h3>El Recibo Beneficia a Tu Inquilino</h3>
+          <p>
+            Al pagar en el banco o por internet, SUNAT emite el <strong>Formulario 1683</strong>. Al darle esa copia a tu inquilino, él puede <strong>reducir hasta el 30% del alquiler en su propio impuesto</strong> (hasta 3 UIT), incentivándolo a pagar puntual.
+          </p>
+        </div>
+      </div>
+
+      <div style="margin-top: 36px; background: white; border: 1px solid var(--border); border-radius: var(--radius); padding: 26px;">
+        <h4 style="font-size: 1.1rem; color: var(--primary-dark); margin-bottom: 10px;">
+          ¿Por qué te conviene formalizar tu alquiler en Moche?
+        </h4>
+        <div class="grid-2" style="font-size: 0.9rem; color: var(--text-muted); line-height: 1.6;">
+          <div>
+            ✔️ <strong>Desalojo Notarial Rápido:</strong> Si tienes contrato legalizado con firmas notariadas y pagos bancarizados, puedes recuperar tu inmueble en semanas ante morosidad bajo la Ley N.º 30933.<br><br>
+            ✔️ <strong>Justificación de Ingresos:</strong> Cada recibo demuestra ante los bancos que tus ingresos son lícitos, facilitándote préstamos comerciales o hipotecarios.
+          </div>
+          <div>
+            ✔️ <strong>Cero Miedo a Fiscalizaciones:</strong> SUNAT cruza datos con las municipalidades (autovalúo) y registros públicos. Al tener tu 5% pagado, evitas cobranzas coactivas.<br><br>
+            ✔️ <strong>Trámite 100% Digital:</strong> Puedes pagar en 2 minutos desde tu celular con tu Clave SOL o en cualquier agente bancario de Moche.
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==================== PESTAÑA 2: SIMULADOR FORMULARIO 1683 ==================== -->
+    <section id="view-simulador" class="tab-view">
+      <div class="view-header">
+        <span class="view-tag">PRÁCTICA INTERACTIVA GUIADA</span>
+        <h2 class="view-title">Simulador del Formulario Virtual N.º 1683</h2>
+        <p class="view-desc">
+          Esta herramienta replica la plataforma oficial de SUNAT Operaciones en Línea. Llena los datos como si estuvieras declarando en vivo: los cálculos se hacen automáticos y podrás emitir una constancia virtual de prueba.
+        </p>
+      </div>
+
+      <div class="sunat-simulator">
+        <div class="sunat-top-bar">
+          <div class="sunat-title">
+            PORTAL SUNAT <span>ENTORNO DE SIMULACIÓN</span>
+          </div>
+          <div class="sunat-meta">
+            Arrendador: 10XXXXXXXXX | Moche Pueblo | <strong>Modo Práctica</strong>
+          </div>
+        </div>
+        <div class="sunat-subbar">
+          <div>Formulario Virtual N.º 1683 - Guía Pago Fácil Arrendamiento</div>
+          <div>Tributo: 3011 - Rta. 1.ª Cat. Alquileres</div>
+        </div>
+
+        <div class="sunat-content">
+          <div class="sunat-grid">
+            <!-- Columna Izquierda: Datos -->
+            <div class="sunat-panel">
+              <div class="sunat-panel-title">
+                <span>1. Ingresa los Datos de tu Alquiler</span>
+                <span style="font-size: 0.74rem; color: var(--text-muted);">Paso 1</span>
+              </div>
+
+              <div class="form-group">
+                <label for="simPeriod">Periodo Tributario (Mes y Año del Alquiler):</label>
+                <select id="simPeriod" class="form-control" onchange="calcSim()">
+                  <option value="10/2025">Octubre 2025</option>
+                  <option value="11/2025">Noviembre 2025</option>
+                  <option value="12/2025">Diciembre 2025</option>
+                  <option value="01/2026">Enero 2026</option>
+                </select>
+                <div class="form-hint">Selecciona el mes que corresponde a la mensualidad arrendada.</div>
+              </div>
+
+              <div class="grid-2">
+                <div class="form-group">
+                  <label for="simDocType">Doc. del Inquilino:</label>
+                  <select id="simDocType" class="form-control" onchange="calcSim()">
+                    <option value="DNI">DNI (Persona Natural)</option>
+                    <option value="RUC">RUC (Negocio/Empresa)</option>
+                  </select>
+                </div>
+                <div class="form-group">
+                  <label for="simDocNumber">Número de Documento:</label>
+                  <input type="text" id="simDocNumber" class="form-control" value="47895612" maxlength="11" oninput="calcSim()">
+                </div>
+              </div>
+
+              <div class="grid-2">
+                <div class="form-group">
+                  <label for="simCurrency">Moneda del Alquiler:</label>
+                  <select id="simCurrency" class="form-control" onchange="calcSim()">
+                    <option value="PEN">Soles (S/)</option>
+                    <option value="USD">Dólares (US$)</option>
+                  </select>
+                </div>
+                <div class="form-group">
+                  <label for="simAmount">Monto Cobrado:</label>
+                  <input type="number" id="simAmount" class="form-control" value="1200" min="50" step="50" oninput="calcSim()">
+                </div>
+              </div>
+
+              <div class="form-group" id="simTcRow" style="display: none;">
+                <label for="simTc">Tipo de Cambio SBS (Venta):</label>
+                <input type="number" id="simTc" class="form-control" value="3.75" step="0.01" oninput="calcSim()">
+                <div class="form-hint">SUNAT convierte automáticamente a Soles según la cotización del día.</div>
+              </div>
+
+              <div class="form-group">
+                <label for="simAddress">Dirección del Inmueble (en Moche):</label>
+                <input type="text" id="simAddress" class="form-control" value="Jr. Bolognesi N.° 345, Moche">
+              </div>
+            </div>
+
+            <!-- Columna Derecha: Liquidación -->
+            <div class="sunat-panel" style="display: flex; flex-direction: column; justify-content: space-between;">
+              <div>
+                <div class="sunat-panel-title">
+                  <span>2. Liquidación Automática del 5%</span>
+                  <span style="font-size: 0.74rem; color: var(--primary);">Paso 2</span>
+                </div>
+
+                <div class="receipt-row">
+                  <span>Renta Bruta en Soles:</span>
+                  <strong id="dispSimGross">S/ 1,200.00</strong>
+                </div>
+                <div class="receipt-row">
+                  <span>Descuento de Ley (20%):</span>
+                  <span id="dispSimDeduction" style="color: var(--danger);">- S/ 240.00</span>
+                </div>
+                <div class="receipt-row">
+                  <span>Renta Neta Legal (80%):</span>
+                  <strong id="dispSimNet">S/ 960.00</strong>
+                </div>
+                <div class="receipt-row">
+                  <span>Tasa Aplicable:</span>
+                  <span>5% Directo de la Renta Bruta</span>
+                </div>
+
+                <div class="receipt-row total">
+                  <span>MONTO TOTAL A PAGAR:</span>
+                  <span id="dispSimTax" style="font-size: 1.3rem;">S/ 60.00</span>
+                </div>
+
+                <div style="font-size: 0.8rem; color: var(--text-muted); margin-top: 14px; background: #f8fafc; padding: 10px; border-radius: 4px; border: 1px solid var(--border);">
+                  💡 <strong>¿Cómo se paga en la realidad?</strong> Puedes pagar con tarjeta de crédito/débito o generar un <em>NPS</em> (Número de Pago SUNAT) y pagar en efectivo en el agente BCP, BBVA, Interbank o Banco de la Nación de Moche.
+                </div>
+              </div>
+
+              <div style="display: flex; gap: 10px; margin-top: 20px;">
+                <button class="btn btn-outline" style="flex: 1;" onclick="resetSim()">Restablecer</button>
+                <button class="btn btn-primary" style="flex: 2; justify-content: center;" onclick="emitSimReceipt()">
+                  Emitir Constancia Virtual
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Constancia / Recibo Generado -->
+          <div id="simTicketBox" class="ticket-container">
+            <div class="ticket-header">
+              <h4>SUNAT - CONSTANCIA DE DECLARACIÓN Y PAGO</h4>
+              <p>FORMULARIO VIRTUAL N.º 1683 - ARRENDAMIENTO PRIMERA CATEGORÍA</p>
+              <div style="color: var(--success); font-weight: 800; font-size: 0.82rem; margin-top: 4px;">
+                ✅ OPERACIÓN SIMULADA CON ÉXITO | N.º DE ORDEN: <span id="tickOrder">87421903</span>
+              </div>
+            </div>
+
+            <div class="ticket-grid">
+              <div class="ticket-item">
+                <label>ARRENDADOR (PROPIETARIO):</label>
+                <span>LOZANO VÁSQUEZ CARLOS (RUC 10459821345)</span>
+              </div>
+              <div class="ticket-item">
+                <label>PERIODO TRIBUTARIO:</label>
+                <span id="tickPeriod">10/2025</span>
+              </div>
+              <div class="ticket-item">
+                <label>INQUILINO:</label>
+                <span id="tickTenant">DNI 47895612</span>
+              </div>
+              <div class="ticket-item">
+                <label>MONTO DEL ALQUILER:</label>
+                <span id="tickRent">S/ 1,200.00</span>
+              </div>
+              <div class="ticket-item">
+                <label>IMPORTE PAGADO:</label>
+                <span id="tickPaid" style="color: var(--primary); font-size: 1.1rem; font-weight: 800;">S/ 60.00</span>
+              </div>
+              <div class="ticket-item">
+                <label>FECHA Y HORA:</label>
+                <span id="tickDate">11/10/2026 22:45:00</span>
+              </div>
+            </div>
+
+            <div class="ticket-notice">
+              <strong>¡LISTO!</strong> Entrega una copia de esta constancia a tu inquilino. Este documento es su comprobante oficial de arrendamiento y le permite descontar gastos en su propio impuesto.
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==================== PESTAÑA 3: CALCULADORA DE IMPUESTO Y MULTAS ==================== -->
+    <section id="view-calculadora" class="tab-view">
+      <div class="view-header">
+        <span class="view-tag">HERRAMIENTAS FINANCIERAS</span>
+        <h2 class="view-title">Calculadora de Impuesto y Reducción de Multas</h2>
+        <p class="view-desc">
+          Calcula tu pago mensual en soles o dólares, la renta ficta si cedes un predio a un familiar sin cobrar alquiler, y conoce cómo pagar solo una fracción mínima si se te pasó la fecha de vencimiento.
+        </p>
+      </div>
+
+      <div class="grid-2">
+        <!-- Calculadora Regular y Ficta -->
+        <div class="card">
+          <h3 style="color: var(--primary-dark); margin-bottom: 14px;">1. Liquidación de Alquiler Mensual</h3>
+          
+          <div class="form-group">
+            <label for="calcCurrency">Moneda:</label>
+            <select id="calcCurrency" class="form-control" onchange="runCalcFull()">
+              <option value="PEN">Soles (S/)</option>
+              <option value="USD">Dólares (US$)</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label for="calcRent">Monto del Alquiler Mensual:</label>
+            <input type="number" id="calcRent" class="form-control" value="1500" min="0" step="50" oninput="runCalcFull()">
+          </div>
+
+          <div class="form-group" id="calcTcGroup" style="display: none;">
+            <label for="calcTc">Tipo de Cambio SBS (Venta):</label>
+            <input type="number" id="calcTc" class="form-control" value="3.75" step="0.01" oninput="runCalcFull()">
+          </div>
+
+          <div style="background: var(--primary-subtle); padding: 16px; border-radius: var(--radius-sm); border: 1px solid var(--primary-border); margin-top: 18px;">
+            <div class="receipt-row">
+              <span>Alquiler en Soles:</span>
+              <strong id="calcGrossDisp">S/ 1,500.00</strong>
+            </div>
+            <div class="receipt-row">
+              <span>Descuento de Ley (20%):</span>
+              <span id="calcDedDisp" style="color: var(--danger);">- S/ 300.00</span>
+            </div>
+            <div class="receipt-row">
+              <span>Renta Neta (80%):</span>
+              <strong id="calcNetDisp">S/ 1,200.00</strong>
+            </div>
+            <div class="receipt-row total">
+              <span>PAGO MENSUAL (5%):</span>
+              <span id="calcTaxDisp" style="color: var(--primary);">S/ 75.00</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Calculadora de Multa con Gradualidad -->
+        <div class="card">
+          <h3 style="color: var(--primary-dark); margin-bottom: 14px;">2. Si se me pasó la fecha: ¿Cuánto es la multa real?</h3>
+          <p style="font-size: 0.86rem; color: var(--text-muted); margin-bottom: 14px;">
+            La multa base por olvidar declarar en fecha es el 50% de la UIT. Sin embargo, la ley otorga una <strong>rebaja del 90%</strong> si subsanas voluntariamente antes de que SUNAT te notifique.
+          </p>
+
+          <div class="form-group">
+            <label for="multaUit">Valor de la UIT Vigente (S/):</label>
+            <input type="number" id="multaUit" class="form-control" value="5150" oninput="calcMulta()">
+          </div>
+
+          <div class="form-group">
+            <label for="multaTipo">¿Cómo vas a subsanar tu omisión?</label>
+            <select id="multaTipo" class="form-control" onchange="calcMulta()">
+              <option value="90">Voluntaria CON pago (Rebaja del 90%) - Recomendado</option>
+              <option value="80">Voluntaria SIN pago inmediato (Rebaja del 80%)</option>
+              <option value="60">Inducida con pago (Tras notificación SUNAT: Rebaja del 60%)</option>
+              <option value="0">Sin subsanar (100% de la multa)</option>
+            </select>
+          </div>
+
+          <div style="background: #f8fafc; padding: 16px; border-radius: var(--radius-sm); border: 1px solid var(--border);">
+            <div class="receipt-row">
+              <span>Multa teórica base (50% UIT):</span>
+              <strong id="multaBaseDisp">S/ 2,575.00</strong>
+            </div>
+            <div class="receipt-row">
+              <span>Descuento por Gradualidad:</span>
+              <span id="multaRebajaDisp" style="color: var(--success); font-weight: 700;">- 90% (- S/ 2,317.50)</span>
+            </div>
+            <div class="receipt-row total" style="background: #fef2f2; color: var(--danger); border-top: 1px solid #fecaca;">
+              <span>MULTA REAL A PAGAR:</span>
+              <span id="multaFinalDisp">S/ 258.00</span>
+            </div>
+          </div>
+          <div style="font-size: 0.78rem; color: #15803d; margin-top: 10px; font-weight: 600;">
+            ✨ Consejo: No tengas miedo a formalizarte por atrasos. Si tú mismo declaras antes de recibir cartas de SUNAT, pagarás solo aprox. S/ 258 en lugar de S/ 2,575.
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==================== PESTAÑA 4: RECIBO DE ALQUILER ==================== -->
+    <section id="view-recibo" class="tab-view">
+      <div class="view-header">
+        <span class="view-tag">DEBER FORMAL Y BENEFICIO MUTUO</span>
+        <h2 class="view-title">El Recibo por Arrendamiento</h2>
+        <p class="view-desc">
+          Todo sobre el comprobante oficial que respalda tu alquiler, cómo entregarlo al inquilino y por qué le conviene exigírtelo para deducir impuestos.
+        </p>
+      </div>
+
+      <div class="grid-2">
+        <div class="card">
+          <div class="card-icon">🧾</div>
+          <h3>¿Cómo se genera el Recibo de Alquiler?</h3>
+          <p style="margin-bottom: 12px;">
+            El recibo por arrendamiento no se compra en imprentas ni se hace en talonarios manuales. <strong>Es el mismo Formulario 1683</strong> que obtienes al momento de pagar tu 5% en el banco o vía online.
+          </p>
+          <ul style="padding-left: 20px; font-size: 0.88rem; color: var(--text-muted); line-height: 1.6;">
+            <li>Contiene el RUC del arrendador, DNI o RUC del inquilino y el mes pagado.</li>
+            <li>Si pagas en agente bancario, el voucher impreso que te entregan <em>es</em> el recibo oficial de arrendamiento.</li>
+            <li>Si pagas por internet en SUNAT, descargas la constancia en formato PDF o la imprimes directamente.</li>
+          </ul>
+        </div>
+
+        <div class="card">
+          <div class="card-icon">🤝</div>
+          <h3>El Gran Beneficio para tu Inquilino (Deducción de 3 UIT)</h3>
+          <p style="margin-bottom: 12px;">
+            Muchos inquilinos desconocen que exigir su recibo les ahorra dinero en sus propios impuestos personales (trabajadores en planilla o independientes con recibos por honorarios):
+          </p>
+          <ul style="padding-left: 20px; font-size: 0.88rem; color: var(--text-muted); line-height: 1.6;">
+            <li>El inquilino puede deducir el <strong>30% de todo lo que te paga de alquiler</strong> en su declaración jurada anual.</li>
+            <li>Para que sea válido, el pago del alquiler debe realizarse por transferencia o depósito bancario si supera los S/ 2,000 o US$ 500.</li>
+            <li>Este beneficio crea una relación de confianza donde ambas partes ganan seguridad jurídica y ahorro tributario.</li>
+          </ul>
+        </div>
+      </div>
+
+      <div style="background: white; border: 1px solid var(--border); border-radius: var(--radius); padding: 26px; margin-top: 24px;">
+        <h3 style="color: var(--primary-dark); margin-bottom: 12px;">Recomendación Notarial: Contrato con Cláusula de Allanamiento</h3>
+        <p style="font-size: 0.9rem; color: var(--text-muted); line-height: 1.6;">
+          Para garantizar la tranquilidad de tu patrimonio en Moche, siempre formaliza tu contrato por escrito con firmas legalizadas notarialmente e incluye la <strong>Cláusula de Allanamiento Futuro (Ley N.º 30201)</strong> o la <strong>Cláusula de Desalojo Notarial Express (Ley N.º 30933)</strong>. Así, si el inquilino no paga durante 2 meses consecutivos o vence el plazo de alquiler, podrás recuperar la posesión del predio mediante un trámite notarial y judicial sumarísimo en semanas.
+        </p>
+      </div>
+    </section>
+
+    <!-- ==================== PESTAÑA 5: VENCIMIENTOS POR RUC ==================== -->
+    <section id="view-cronograma" class="tab-view">
+      <div class="view-header">
+        <span class="view-tag">CALENDARIO TRIBUTARIO</span>
+        <h2 class="view-title">Cronograma de Vencimientos según tu RUC</h2>
+        <p class="view-desc">
+          En el Perú, la fecha límite para declarar y pagar tu 5% mensual depende exclusivamente del <strong>último dígito de tu número de RUC</strong>. Haz clic en tu dígito para conocer tus fechas clave.
+        </p>
+      </div>
+
+      <div class="card" style="max-width: 900px; margin: 0 auto;">
+        <label style="font-weight: 800; font-size: 0.95rem; color: var(--primary-dark); display: block; margin-bottom: 12px;">
+          Haz clic en el último número de tu RUC (del 0 al 9):
+        </label>
+        
+        <div class="digit-row">
+          <div class="digit-circle active" onclick="setRuc(0)">0</div>
+          <div class="digit-circle" onclick="setRuc(1)">1</div>
+          <div class="digit-circle" onclick="setRuc(2)">2</div>
+          <div class="digit-circle" onclick="setRuc(3)">3</div>
+          <div class="digit-circle" onclick="setRuc(4)">4</div>
+          <div class="digit-circle" onclick="setRuc(5)">5</div>
+          <div class="digit-circle" onclick="setRuc(6)">6</div>
+          <div class="digit-circle" onclick="setRuc(7)">7</div>
+          <div class="digit-circle" onclick="setRuc(8)">8</div>
+          <div class="digit-circle" onclick="setRuc(9)">9</div>
+        </div>
+
+        <div style="background: var(--primary-subtle); border: 1px solid var(--primary-border); border-radius: var(--radius-sm); padding: 22px;">
+          <h4 style="color: var(--primary-dark); font-size: 1.15rem; margin-bottom: 6px;" id="cronHead">
+            RUC que termina en número: 0
+          </h4>
+          <p style="font-size: 0.88rem; color: #7c2d12; margin-bottom: 16px;" id="cronSub">
+            Los contribuyentes con dígito 0 son siempre el primer grupo en el calendario oficial de SUNAT.
+          </p>
+
+          <div class="grid-3" style="text-align: center;">
+            <div style="background: white; padding: 14px; border-radius: var(--radius-sm); border: 1px solid var(--primary-border);">
+              <div style="font-size: 0.76rem; color: var(--text-muted); font-weight: 700;">ALQUILER DE OCTUBRE</div>
+              <div style="font-size: 1.1rem; font-weight: 800; color: var(--primary); margin-top: 4px;" id="cDate1">14 de Noviembre</div>
+            </div>
+            <div style="background: white; padding: 14px; border-radius: var(--radius-sm); border: 1px solid var(--primary-border);">
+              <div style="font-size: 0.76rem; color: var(--text-muted); font-weight: 700;">ALQUILER DE NOVIEMBRE</div>
+              <div style="font-size: 1.1rem; font-weight: 800; color: var(--primary); margin-top: 4px;" id="cDate2">15 de Diciembre</div>
+            </div>
+            <div style="background: white; padding: 14px; border-radius: var(--radius-sm); border: 1px solid var(--primary-border);">
+              <div style="font-size: 0.76rem; color: var(--text-muted); font-weight: 700;">ALQUILER DE DICIEMBRE</div>
+              <div style="font-size: 1.1rem; font-weight: 800; color: var(--primary); margin-top: 4px;" id="cDate3">16 de Enero</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==================== PESTAÑA 6: PREGUNTAS FRECUENTES ==================== -->
+    <section id="view-faq" class="tab-view">
+      <div class="view-header">
+        <span class="view-tag">RESOLUCIÓN DE DUDAS</span>
+        <h2 class="view-title">Preguntas Frecuentes de los Arrendadores</h2>
+        <p class="view-desc">
+          Respuestas en lenguaje claro a las situaciones más comunes que enfrentan los propietarios en Moche.
+        </p>
+      </div>
+
+      <div style="max-width: 900px; margin: 0 auto;">
+        <div class="faq-item">
+          <div class="faq-question" onclick="toggleFaq(this)">
+            <span>¿Qué pasa si mi inquilino se atrasa y no me paga la mensualidad?</span>
+            <span>➕</span>
+          </div>
+          <div class="faq-answer">
+            En la Renta de 1ra Categoría, el impuesto se rige por el principio de <strong>devengado</strong>. Esto significa que legalmente la obligación de pagar el 5% mensual nace por el simple paso del tiempo acordado en el contrato, sin importar si cobraste o no. Para no pagar el impuesto de un inquilino moroso, debes resolver o rescindir formalmente el contrato mediante carta notarial.
+          </div>
+        </div>
+
+        <div class="faq-item">
+          <div class="faq-question" onclick="toggleFaq(this)">
+            <span>Si le cedo una casa o habitación a mi hijo o hermano sin cobrarle, ¿debo pagar algo?</span>
+            <span>➕</span>
+          </div>
+          <div class="faq-answer">
+            Si cedes un predio a título gratuito a parientes o terceros (salvo al Estado), la ley presume una <strong>Renta Ficta anual no menor al 6% del valor de autovalúo</strong> municipal del predio. No se paga mes a mes en el Formulario 1683, sino que se regulariza una vez al año en la Declaración Jurada Anual (marzo/abril).
+          </div>
+        </div>
+
+        <div class="faq-item">
+          <div class="faq-question" onclick="toggleFaq(this)">
+            <span>¿Cómo obtengo mi Clave SOL si nunca he tenido una?</span>
+            <span>➕</span>
+          </div>
+          <div class="faq-answer">
+            Ya no necesitas viajar a la oficina de SUNAT en Trujillo. Puedes generar tu Clave SOL en menos de 5 minutos desde tu celular con la aplicación oficial <strong>APP Personas SUNAT</strong>, validando tu identidad mediante verificación biométrica facial con tu DNI.
+          </div>
+        </div>
+
+        <div class="faq-item">
+          <div class="faq-question" onclick="toggleFaq(this)">
+            <span>¿Puedo pagar el 5% en un agente bancario de mi barrio en Moche?</span>
+            <span>➕</span>
+          </div>
+          <div class="faq-answer">
+            Sí. No necesitas computadora para pagar. Solo acércate a cualquier agente bancario (BCP, BBVA, Interbank, Banco de la Nación) y di que vas a realizar una <strong>«Guía Pago Fácil de Arrendamiento - Tributo 3011»</strong>. Le dictas al cajero tu número de RUC, el mes que pagas, el DNI de tu inquilino y el importe del alquiler. El voucher que te entregan es tu recibo oficial.
+          </div>
+        </div>
+
+        <div class="faq-item">
+          <div class="faq-question" onclick="toggleFaq(this)">
+            <span>¿Qué ocurre si alquilo solo una habitación de mi vivienda familiar?</span>
+            <span>➕</span>
+          </div>
+          <div class="faq-answer">
+            Aplica exactamente la misma regla: pagas el 5% únicamente del importe mensual acordado por esa habitación. Conservas tu constancia y proteges tu vivienda sin afectar la condición del resto del inmueble.
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- Pie de Página -->
+  <footer>
+    <div class="footer-container">
+      <div class="footer-col">
+        <h4>MOCHE TRIBUTA</h4>
+        <p style="line-height: 1.6; margin-bottom: 12px;">
+          Plataforma educativa y de simulación digital para impulsar el conocimiento tributario y la formalización voluntaria de los arrendadores del distrito de Moche, La Libertad.
+        </p>
+        <p style="color: #64748b; font-size: 0.78rem;">
+          Iniciativa de orientación comunitaria y educación fiscal ciudadana.
+        </p>
+      </div>
+
+      <div class="footer-col">
+        <h4>ACCESOS RÁPIDOS</h4>
+        <ul>
+          <li><a href="#" onclick="switchTab('inicio')">Inicio y Guía Básica</a></li>
+          <li><a href="#" onclick="switchTab('simulador')">Simulador Formulario 1683</a></li>
+          <li><a href="#" onclick="switchTab('calculadora')">Calculadora de Alquiler</a></li>
+          <li><a href="#" onclick="switchTab('recibo')">Recibo para Inquilino</a></li>
+          <li><a href="#" onclick="switchTab('cronograma')">Cronograma por RUC</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-col">
+        <h4>ENLACES OFICIALES</h4>
+        <ul>
+          <li><a href="https://www.sunat.gob.pe" target="_blank" rel="noopener">SUNAT Virtual</a></li>
+          <li><a href="https://orientacion.sunat.gob.pe" target="_blank" rel="noopener">Guía de Arrendamiento SUNAT</a></li>
+          <li><a href="https://www.sbs.gob.pe" target="_blank" rel="noopener">Tipo de Cambio Oficial SBS</a></li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="footer-bottom">
+      <div>© 2026 Moche Tributa. Plataforma comunitaria de apoyo al arrendador.</div>
+      <div>Desarrollada en HTML/CSS/JS puro, lista para publicación en Vercel o GitHub.</div>
+    </div>
+  </footer>
+
+  <!-- Lógica Interactiva y Navegación entre Pestañas -->
+  <script>
+    // --- 1. Cambio de Pestañas (Single Page Application) ---
+    function switchTab(tabKey) {
+      // Ocultar todas las vistas
+      document.querySelectorAll('.tab-view').forEach(view => {
+        view.classList.remove('active');
+      });
+      // Desactivar todos los botones de pestañas
+      document.querySelectorAll('.nav-tab-btn').forEach(btn => {
+        btn.classList.remove('active');
+      });
+
+      // Activar vista y botón seleccionado
+      const targetView = document.getElementById('view-' + tabKey);
+      const targetBtn = document.getElementById('tab-btn-' + tabKey);
+
+      if (targetView) targetView.classList.add('active');
+      if (targetBtn) targetBtn.classList.add('active');
+
+      // Scroll suave arriba
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    // --- 2. Cálculo Rápido de la Pantalla de Inicio ---
+    function calcQuickHome() {
+      const rent = parseFloat(document.getElementById('homeRentInput').value) || 0;
+      const tax = Math.round(rent * 0.05);
+      document.getElementById('homeTaxOutput').textContent = 'S/ ' + tax.toFixed(2);
+    }
+
+    // --- 3. Simulador SUNAT Formulario 1683 ---
+    function calcSim() {
+      const cur = document.getElementById('simCurrency').value;
+      const rentRaw = parseFloat(document.getElementById('simAmount').value) || 0;
+      const tcGroup = document.getElementById('simTcRow');
+
+      let rentPEN = rentRaw;
+      if (cur === 'USD') {
+        tcGroup.style.display = 'block';
+        const tc = parseFloat(document.getElementById('simTc').value) || 3.75;
+        rentPEN = rentRaw * tc;
+      } else {
+        tcGroup.style.display = 'none';
+      }
+
+      const ded = rentPEN * 0.20;
+      const net = rentPEN * 0.80;
+      const tax = Math.round(rentPEN * 0.05);
+
+      document.getElementById('dispSimGross').textContent = 'S/ ' + rentPEN.toLocaleString('es-PE', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+      document.getElementById('dispSimDeduction').textContent = '- S/ ' + ded.toLocaleString('es-PE', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+      document.getElementById('dispSimNet').textContent = 'S/ ' + net.toLocaleString('es-PE', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+      document.getElementById('dispSimTax').textContent = 'S/ ' + tax.toLocaleString('es-PE', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+    }
+
+    function emitSimReceipt() {
+      const cur = document.getElementById('simCurrency').value;
+      const rentRaw = parseFloat(document.getElementById('simAmount').value) || 0;
+      const docType = document.getElementById('simDocType').value;
+      const docNum = document.getElementById('simDocNumber').value || '47895612';
+      const period = document.getElementById('simPeriod').value;
+      const tc = parseFloat(document.getElementById('simTc').value) || 3.75;
+
+      let rentPEN = rentRaw;
+      if (cur === 'USD') {
+        rentPEN = rentRaw * tc;
+      }
+      const tax = Math.round(rentPEN * 0.05);
+
+      document.getElementById('tickPeriod').textContent = period;
+      document.getElementById('tickTenant').textContent = `${docType} ${docNum}`;
+      document.getElementById('tickRent').textContent = (cur === 'USD' ? 'US$ ' + rentRaw.toFixed(2) + ' (S/ ' + rentPEN.toFixed(2) + ')' : 'S/ ' + rentPEN.toFixed(2));
+      document.getElementById('tickPaid').textContent = 'S/ ' + tax.toFixed(2);
+      document.getElementById('tickOrder').textContent = Math.floor(10000000 + Math.random() * 90000000);
+
+      const now = new Date();
+      document.getElementById('tickDate').textContent = now.toLocaleDateString('es-PE') + ' ' + now.toLocaleTimeString('es-PE');
+
+      const ticketBox = document.getElementById('simTicketBox');
+      ticketBox.classList.add('show');
+      ticketBox.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+    }
+
+    function resetSim() {
+      document.getElementById('simAmount').value = '1200';
+      document.getElementById('simTicketBox').classList.remove('show');
+      calcSim();
+    }
+
+    // --- 4. Calculadora Completa y de Multas ---
+    function runCalcFull() {
+      const cur = document.getElementById('calcCurrency').value;
+      const rentRaw = parseFloat(document.getElementById('calcRent').value) || 0;
+      const tcGroup = document.getElementById('calcTcGroup');
+
+      let rentPEN = rentRaw;
+      if (cur === 'USD') {
+        tcGroup.style.display = 'block';
+        const tc = parseFloat(document.getElementById('calcTc').value) || 3.75;
+        rentPEN = rentRaw * tc;
+      } else {
+        tcGroup.style.display = 'none';
+      }
+
+      const ded = rentPEN * 0.20;
+      const net = rentPEN * 0.80;
+      const tax = Math.round(rentPEN * 0.05);
+
+      document.getElementById('calcGrossDisp').textContent = 'S/ ' + rentPEN.toLocaleString('es-PE', { minimumFractionDigits: 2 });
+      document.getElementById('calcDedDisp').textContent = '- S/ ' + ded.toLocaleString('es-PE', { minimumFractionDigits: 2 });
+      document.getElementById('calcNetDisp').textContent = 'S/ ' + net.toLocaleString('es-PE', { minimumFractionDigits: 2 });
+      document.getElementById('calcTaxDisp').textContent = 'S/ ' + tax.toLocaleString('es-PE', { minimumFractionDigits: 2 });
+    }
+
+    function calcMulta() {
+      const uit = parseFloat(document.getElementById('multaUit').value) || 5150;
+      const base = uit * 0.50; // 50% UIT
+      const pct = parseInt(document.getElementById('multaTipo').value);
+
+      const rebajaMonto = base * (pct / 100);
+      const finalMulta = Math.round(base - rebajaMonto);
+
+      document.getElementById('multaBaseDisp').textContent = 'S/ ' + base.toLocaleString('es-PE', { minimumFractionDigits: 2 });
+      document.getElementById('multaRebajaDisp').textContent = `- ${pct}% (- S/ ${rebajaMonto.toLocaleString('es-PE', { minimumFractionDigits: 2 })})`;
+      document.getElementById('multaFinalDisp').textContent = 'S/ ' + finalMulta.toLocaleString('es-PE', { minimumFractionDigits: 2 });
+    }
+
+    // --- 5. Cronograma por RUC ---
+    const rucCalendar = {
+      0: { title: "RUC que termina en número: 0", sub: "Primer grupo del mes en el calendario SUNAT.", d1: "14 de Noviembre", d2: "15 de Diciembre", d3: "16 de Enero" },
+      1: { title: "RUC que termina en número: 1", sub: "Segundo día hábil de vencimientos.", d1: "15 de Noviembre", d2: "16 de Diciembre", d3: "17 de Enero" },
+      2: { title: "RUC que termina en número: 2", sub: "Tercer día hábil de vencimientos.", d1: "16 de Noviembre", d2: "17 de Diciembre", d3: "18 de Enero" },
+      3: { title: "RUC que termina en número: 3", sub: "Cuarto día hábil de vencimientos.", d1: "17 de Noviembre", d2: "18 de Diciembre", d3: "19 de Enero" },
+      4: { title: "RUC que termina en número: 4", sub: "Quinto día hábil de vencimientos.", d1: "18 de Noviembre", d2: "19 de Diciembre", d3: "20 de Enero" },
+      5: { title: "RUC que termina en número: 5", sub: "Sexto día hábil de vencimientos.", d1: "19 de Noviembre", d2: "20 de Diciembre", d3: "21 de Enero" },
+      6: { title: "RUC que termina en número: 6", sub: "Séptimo día hábil de vencimientos.", d1: "20 de Noviembre", d2: "21 de Diciembre", d3: "22 de Enero" },
+      7: { title: "RUC que termina en número: 7", sub: "Octavo día hábil de vencimientos.", d1: "21 de Noviembre", d2: "22 de Diciembre", d3: "23 de Enero" },
+      8: { title: "RUC que termina en número: 8", sub: "Noveno día hábil de vencimientos.", d1: "22 de Noviembre", d2: "23 de Diciembre", d3: "24 de Enero" },
+      9: { title: "RUC que termina en número: 9", sub: "Último grupo del cronograma regular.", d1: "23 de Noviembre", d2: "24 de Diciembre", d3: "25 de Enero" }
+    };
+
+    function setRuc(num) {
+      document.querySelectorAll('.digit-circle').forEach((el, idx) => {
+        el.classList.toggle('active', idx === num);
+      });
+      const data = rucCalendar[num];
+      document.getElementById('cronHead').textContent = data.title;
+      document.getElementById('cronSub').textContent = data.sub;
+      document.getElementById('cDate1').textContent = data.d1;
+      document.getElementById('cDate2').textContent = data.d2;
+      document.getElementById('cDate3').textContent = data.d3;
+    }
+
+    // --- 6. Preguntas Frecuentes Acordeón ---
+    function toggleFaq(headerEl) {
+      const answer = headerEl.nextElementSibling;
+      const isVisible = answer.style.display === 'block';
+      
+      // Cerrar otros
+      document.querySelectorAll('.faq-answer').forEach(ans => ans.style.display = 'none');
+      document.querySelectorAll('.faq-question span:last-child').forEach(s => s.textContent = '➕');
+
+      if (!isVisible) {
+        answer.style.display = 'block';
+        headerEl.querySelector('span:last-child').textContent = '➖';
+      }
+    }
+
+    // Inicializaciones
+    calcQuickHome();
+    calcSim();
+    runCalcFull();
+    calcMulta();
+  </script>
+</body>
+</html>
