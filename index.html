@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Moche Tributa - Guía y Simulador para Arrendadores</title>
+  <title>Moche Tributa - Guía y Simulador de Arrendamiento</title>
   <style>
 :root {
   --primary: #ea580c;         /* Naranja principal */
@@ -235,6 +235,12 @@ main {
   gap: 20px;
 }
 
+.grid-4 {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 18px;
+}
+
 .card {
   background: var(--white);
   border: 1px solid var(--primary-border);
@@ -274,39 +280,27 @@ main {
   line-height: 1.55;
 }
 
-/* Banner de Inicio */
-.hero-box {
+/* Bloques Destacados */
+.banner-orange {
   background: linear-gradient(135deg, #fff7ed 0%, #ffedd5 100%);
   border: 2px solid var(--primary-border);
   border-radius: var(--radius);
-  padding: 32px;
+  padding: 28px;
   margin-bottom: 30px;
-  display: grid;
-  grid-template-columns: 1.25fr 0.75fr;
-  gap: 30px;
-  align-items: center;
 }
 
-.hero-box h2 {
-  font-size: 1.95rem;
+.banner-orange h2 {
+  font-size: 1.85rem;
   font-weight: bold;
   color: var(--primary-dark);
-  margin-bottom: 12px;
-  line-height: 1.2;
+  margin-bottom: 10px;
+  line-height: 1.25;
 }
 
-.hero-box p {
+.banner-orange p {
   font-size: 0.96rem;
   color: var(--black);
-  margin-bottom: 20px;
-}
-
-.calc-mini {
-  background: var(--white);
-  border: 2px solid var(--primary);
-  border-radius: var(--radius);
-  padding: 22px;
-  box-shadow: var(--shadow-md);
+  line-height: 1.6;
 }
 
 /* Controles de Formulario */
@@ -592,7 +586,7 @@ footer {
 }
 
 @media (max-width: 850px) {
-  .grid-2, .grid-3, .hero-box, .footer-wrap { grid-template-columns: 1fr; }
+  .grid-2, .grid-3, .grid-4, .footer-wrap { grid-template-columns: 1fr; }
   .tab-btn { padding: 12px 12px; font-size: 0.88rem; }
 }
 </style>
@@ -614,7 +608,7 @@ footer {
       </div>
     </div>
 
-    <!-- Pestañas de Navegación Exactas -->
+    <!-- 5 Pestañas Solicitadas -->
     <nav class="nav-tabs-bar">
       <div class="tabs-wrapper">
         <button class="tab-btn active" id="btn-tab-inicio" onclick="setTab('inicio')">
@@ -640,93 +634,195 @@ footer {
   <main>
     
 <div class="tab-panel active" id="panel-inicio">
-  <div class="hero-box">
-    <div>
-      <span class="page-tag">INFORMACIÓN PARA ARRENDADORES</span>
-      <h2>Alquilar en Moche de Forma Segura y Sin Miedo al Fisco</h2>
+  <div class="banner-orange">
+    <span class="page-tag">CONOCIMIENTO TRIBUTARIO PARA ARRENDADORES</span>
+    <h2>El RUC, Deberes Formales y el Manejo de Herramientas de SUNAT</h2>
+    <p>
+      Para alquilar un predio de manera formal y segura en el distrito de Moche, es fundamental comprender qué es el RUC, la importancia de encontrarse en condición de <strong>Habido</strong> para la emisión de los comprobantes obligatorios de arrendamiento, el respaldo de una adecuada asesoría contable y el correcto uso de los aplicativos digitales de SUNAT.
+    </p>
+    <div style="display: flex; gap: 12px; flex-wrap: wrap; margin-top: 18px;">
+      <button class="btn btn-primary" onclick="setTab('simulador')">
+        Ir al Simulador Formulario 1683
+      </button>
+      <button class="btn btn-outline" onclick="setTab('calculadora')">
+        Ver Pago del Impuesto y Multas
+      </button>
+    </div>
+  </div>
+
+  <!-- Bloque 1: Concepto e Importancia del RUC -->
+  <div class="page-heading" style="border-bottom: none; margin-bottom: 12px;">
+    <h3 class="page-title" style="font-size: 1.45rem;">
+      1. El Registro Único de Contribuyentes (RUC) y su Importancia
+    </h3>
+  </div>
+
+  <div class="grid-2" style="margin-bottom: 30px;">
+    <div class="card">
+      <div class="card-icon">🆔</div>
+      <h3>¿Qué es el RUC para el Arrendador?</h3>
       <p>
-        Esta página web ha sido creada de manera independiente para que los propietarios y arrendadores del distrito de Moche conozcan sus deberes fiscales, calculen el 5% de su alquiler y practiquen cómo declarar sin errores ni multas.
+        El RUC es el número de 11 dígitos que identifica tributariamente al propietario ante la SUNAT. En personas naturales que alquilan inmuebles, inicia con el dígito <strong>10</strong> seguido de su número de DNI.
       </p>
-      <div style="display: flex; gap: 12px; flex-wrap: wrap;">
-        <button class="btn btn-primary" onclick="setTab('simulador')">
-          Practicar en el Simulador 1683
-        </button>
-        <button class="btn btn-outline" onclick="setTab('calculadora')">
-          Calcular Impuesto y Multas
-        </button>
-      </div>
+      <p style="margin-top: 10px;">
+        <strong>Importancia crucial:</strong> Estar inscrito con RUC activo y con la afectación al <em>Tributo 3011 (Renta de Primera Categoría)</em> es el requisito legal indispensable que te habilitará para declarar mensualmente y generar los comprobantes oficiales de pago por cada alquiler que realices.
+      </p>
     </div>
 
-    <div class="calc-mini">
-      <h3 style="font-size: 1.1rem; color: var(--primary); margin-bottom: 12px;">
-        Calculadora Rápida del 5%
-      </h3>
-      <div class="form-group">
-        <label for="homeRent">Si cobras de alquiler mensual (S/):</label>
-        <input type="number" id="homeRent" class="form-control" value="1000" min="50" step="50" oninput="calcQuickHome()">
+    <div class="card">
+      <div class="card-icon">🏠</div>
+      <h3>La Obligación Legal de Emitir Comprobantes</h3>
+      <p>
+        Cuando alquilas una casa, departamento, habitación o local comercial, la ley peruana establece que la <strong>emisión del comprobante de arrendamiento es obligatoria</strong>.
+      </p>
+      <p style="margin-top: 10px;">
+        Este comprobante oficial es el <strong>Formulario Virtual N.º 1683</strong> (o el voucher bancario de pago fácil), el cual certifica fehacientemente el pago del tributo y protege jurídicamente tu contrato frente a controversias legales.
+      </p>
+    </div>
+  </div>
+
+  <!-- Bloque 2: Estados del RUC y la Condición de "HABIDO" -->
+  <div class="page-heading" style="border-bottom: none; margin-bottom: 12px;">
+    <h3 class="page-title" style="font-size: 1.45rem;">
+      2. Estados del RUC y la Condición Fundamental de "HABIDO"
+    </h3>
+    <p class="page-desc">
+      No basta con tener un número de RUC; es imprescindible verificar periódicamente que tu estado y tu domicilio fiscal ante la SUNAT se encuentren debidamente conformes.
+    </p>
+  </div>
+
+  <div class="grid-3" style="margin-bottom: 30px;">
+    <div class="card">
+      <div class="card-icon">🟢</div>
+      <h3>Estado del RUC: ACTIVO</h3>
+      <p>
+        Significa que el contribuyente se encuentra realizando actividades y autorizado a declarar. Para alquilar, tu RUC debe estar siempre en estado <strong>ACTIVO</strong>. Si figura con <em>Suspensión Temporal</em> o <em>Baja</em>, el sistema de SUNAT rechazará cualquier intento de declaración de alquiler.
+      </p>
+    </div>
+
+    <div class="card" style="border: 2px solid var(--primary); background: var(--primary-subtle);">
+      <div class="card-icon">📍</div>
+      <h3 style="color: var(--primary);">Condición: HABIDO (Obligatorio)</h3>
+      <p>
+        Indica que la SUNAT ha confirmado que tu domicilio fiscal es real y localizable. Encontrarse <strong>HABIDO</strong> es indispensable para que los comprobantes que emitas tengan plena validez legal y tributaria.
+      </p>
+      <p style="margin-top: 8px; font-weight: bold; color: var(--primary-dark);">
+        Si estás en condición de No Hallado o No Habido, no podrás realizar gestiones formales y puedes ser objeto de fiscalización directa.
+      </p>
+    </div>
+
+    <div class="card">
+      <div class="card-icon">⚠️</div>
+      <h3>Riesgo de estar "No Habido"</h3>
+      <p>
+        Ocurre cuando SUNAT acudió a notificar a tu domicilio y no te encontró o la dirección era inexistente. Para regularizarlo, debes ingresar a la plataforma de SUNAT con tu Clave SOL, confirmar o actualizar tu dirección domiciliaria y solicitar la verificación para recuperar la condición de Habido.
+      </p>
+    </div>
+  </div>
+
+  <!-- Bloque 3: Capacitación, Asesoría Contable y SUNAT -->
+  <div class="page-heading" style="border-bottom: none; margin-bottom: 12px;">
+    <h3 class="page-title" style="font-size: 1.45rem;">
+      3. Capacitación y Asesoría Contable: Conoce tus Beneficios y Sanciones
+    </h3>
+  </div>
+
+  <div class="grid-2" style="margin-bottom: 30px;">
+    <div class="card">
+      <div class="card-icon">👨‍💼</div>
+      <h3>Asesórate con un Contable o en la SUNAT</h3>
+      <p>
+        Para un arrendador es vital <strong>solicitar capacitación u orientación periódica de un profesional contable colegiado o recurrir a los canales oficiales de orientación de la SUNAT</strong>.
+      </p>
+      <p style="margin-top: 10px;">
+        La normativa tributaria se actualiza constantemente (valores de la UIT, bancarización, deducciones). Una asesoría oportuna te permite:
+      </p>
+      <ul style="padding-left: 20px; font-size: 0.92rem; color: var(--black); line-height: 1.6; margin-top: 8px;">
+        <li>Identificar la fecha exacta de tu vencimiento mensual según el último dígito de tu RUC.</li>
+        <li>Calcular con exactitud el 5% mensual y entender la renta ficta en caso de ceder inmuebles a familiares.</li>
+        <li>Garantizar que tus contratos de alquiler incluyan cláusulas de protección legal (desalojo express).</li>
+      </ul>
+    </div>
+
+    <div class="card">
+      <div class="card-icon">⚖️</div>
+      <h3>Beneficios vs. Sanciones del Impuesto</h3>
+      <p>
+        Estar informado marca la diferencia entre ahorrar dinero y pagar multas innecesarias:
+      </p>
+      <div style="background: var(--white); border: 1px solid var(--primary-border); border-radius: 6px; padding: 12px; margin-top: 10px;">
+        <strong style="color: var(--primary);">Beneficios:</strong>
+        <p style="font-size: 0.88rem; margin-top: 4px;">
+          Ingresos 100% justificados ante bancos, acceso al desalojo notarial rápido (Ley N.º 30933) y fidelización del inquilino, quien podrá descontar el 30% del alquiler en su propio impuesto anual.
+        </p>
       </div>
-      <div style="background: var(--primary-subtle); padding: 14px; border-radius: 6px; border: 1px solid var(--primary-border);">
-        <div style="display: flex; justify-content: space-between; font-size: 0.88rem; margin-bottom: 4px;">
-          <span>Tasa efectiva directa:</span>
-          <strong>5%</strong>
-        </div>
-        <div style="display: flex; justify-content: space-between; font-size: 1.25rem; font-weight: bold; color: var(--primary);">
-          <span>Impuesto a pagar:</span>
-          <span id="homeTax">S/ 50.00</span>
-        </div>
-      </div>
-      <div style="font-size: 0.78rem; color: var(--black); margin-top: 8px;">
-        * Por cada S/ 1,000 cobrados de alquiler, pagas solo S/ 50 mensuales a SUNAT.
+      <div style="background: var(--white); border: 1px solid var(--primary-border); border-radius: 6px; padding: 12px; margin-top: 10px;">
+        <strong style="color: var(--primary-dark);">Sanciones y Gradualidad:</strong>
+        <p style="font-size: 0.88rem; margin-top: 4px;">
+          Olvidar declarar a tiempo genera una multa base de 50% de la UIT (S/ 2,575). Sin embargo, al conocer la norma, sabes que si declaras voluntariamente con pago obtienes una <strong>rebaja del 90%</strong> (pagando solo aprox. S/ 258).
+        </p>
       </div>
     </div>
   </div>
 
-  <div class="page-heading" style="border-bottom: none; margin-bottom: 16px;">
+  <!-- Bloque 4: Aplicativos Digitales de SUNAT y su Manejo Adecuado -->
+  <div class="page-heading" style="border-bottom: none; margin-bottom: 12px;">
     <h3 class="page-title" style="font-size: 1.45rem;">
-      3 Puntos Clave que Todo Arrendador Debe Conocer
+      4. Aplicativos de SUNAT: Herramientas para Cumplir sin Errores
     </h3>
+    <p class="page-desc">
+      La administración tributaria ha desarrollado aplicativos y herramientas virtuales diseñadas para facilitar las declaraciones de los arrendadores y evitar demoras o errores de llenado.
+    </p>
   </div>
 
   <div class="grid-3">
     <div class="card">
-      <div class="card-icon">1</div>
-      <h3>La Tasa Efectiva es solo el 5%</h3>
+      <div class="card-icon">💻</div>
+      <h3>SUNAT Operaciones en Línea (SOL)</h3>
       <p>
-        Existe una deducción legal fija del 20% sobre la renta bruta. Por eso, en la práctica <strong>solo pagas el 5% del alquiler pactado</strong> en el contrato. No se requiere contratar a un contador para realizar este cálculo directo.
+        Es el portal virtual principal de SUNAT. Ingresando con tu RUC, usuario y Clave SOL, accedes al <strong>Formulario Virtual 1683 - Arrendamiento</strong>.
+      </p>
+      <p style="margin-top: 8px; font-size: 0.88rem;">
+        Permite declarar en menos de 3 minutos, calcula automáticamente el 5% y te permite pagar directamente con tarjeta de débito/crédito o generar el Número de Pago SUNAT (NPS) para agentes.
       </p>
     </div>
 
     <div class="card">
-      <div class="card-icon">2</div>
-      <h3>El Impuesto Nace Mes a Mes</h3>
+      <div class="card-icon">📱</div>
+      <h3>APP Personas SUNAT</h3>
       <p>
-        Se rige por el criterio del devengado: la obligación tributaria se genera por cada mes de alquiler transcurrido, incluso si el inquilino se retrasa en el pago. Pagar en fecha evita intereses moratorios y sanciones.
+        Aplicativo móvil oficial para teléfonos celulares (Android y iPhone). 
+      </p>
+      <p style="margin-top: 8px; font-size: 0.88rem;">
+        Te permite <strong>consultar el estado de tu RUC</strong>, verificar si estás <strong>Habido</strong>, generar o recuperar tu Clave SOL mediante reconocimiento facial biométrico sin hacer colas ni salir de Moche, y revisar tus declaraciones históricas.
       </p>
     </div>
 
     <div class="card">
-      <div class="card-icon">3</div>
-      <h3>El Recibo Formaliza tu Propiedad</h3>
+      <div class="card-icon">🎯</div>
+      <h3>Manejo Adecuado para Prevenir Errores</h3>
       <p>
-        El Formulario 1683 emitido al pagar sirve como recibo oficial de arrendamiento. Al entregarlo a tu inquilino, él puede <strong>deducir el 30% del alquiler en su propio impuesto personal</strong> (hasta 3 UIT), creando un incentivo para pagar puntual.
+        Tener un adecuado dominio de estos aplicativos elimina el temor tecnológico y previene los errores más comunes de los propietarios:
       </p>
+      <ul style="padding-left: 18px; font-size: 0.86rem; color: var(--black); line-height: 1.5; margin-top: 8px;">
+        <li>Equivocación en el periodo tributario (mes que corresponde al alquiler).</li>
+        <li>Errores en el número de documento de identidad del inquilino.</li>
+        <li>Confusión en la conversión del tipo de cambio si el alquiler está pactado en dólares.</li>
+      </ul>
     </div>
   </div>
 
-  <div style="margin-top: 36px; background: var(--white); border: 2px solid var(--primary-border); border-radius: var(--radius); padding: 26px;">
-    <h3 style="color: var(--primary); margin-bottom: 12px; font-size: 1.2rem;">
-      Ventajas Prácticas de Formalizar tu Alquiler en Moche
+  <!-- Llamado a la Acción para Practicar -->
+  <div style="margin-top: 32px; background: var(--primary-subtle); border: 2px solid var(--primary); border-radius: var(--radius); padding: 24px; text-align: center;">
+    <h3 style="color: var(--primary-dark); font-size: 1.25rem; margin-bottom: 8px;">
+      ¿Quieres practicar cómo se declaran estos datos antes de hacerlo en SUNAT?
     </h3>
-    <div class="grid-2" style="font-size: 0.92rem; color: var(--black); line-height: 1.6;">
-      <div>
-        • <strong>Desalojo Notarial Express:</strong> Con contrato formalizado con firmas legalizadas ante notario público, puedes recuperar tu inmueble rápidamente ante morosidad bajo la Ley N.º 30933.<br><br>
-        • <strong>Justificación de Ingresos:</strong> Cada pago del 5% acredita que tus ingresos por alquileres son lícitos y bancarizables ante cualquier entidad financiera.
-      </div>
-      <div>
-        • <strong>Evita Notificaciones y Multas:</strong> Al mantener tus declaraciones al día según tu cronograma de RUC, eliminas el riesgo de cobranzas coactivas.<br><br>
-        • <strong>Pago Fácil en Agentes:</strong> Puedes pagar en cualquier agente bancario de tu barrio en Moche o directamente desde tu celular con tu Clave SOL.
-      </div>
-    </div>
+    <p style="font-size: 0.95rem; color: var(--black); max-width: 800px; margin: 0 auto 16px;">
+      Utiliza nuestro <strong>Simulador Formulario 1683</strong> en la siguiente pestaña. Podrás ingresar los datos del inquilino, el monto del alquiler y ver la generación de la constancia oficial de forma guiada y 100% gratuita.
+    </p>
+    <button class="btn btn-primary" onclick="setTab('simulador')">
+      Abrir el Simulador Formulario 1683
+    </button>
   </div>
 </div>
 
@@ -1325,7 +1421,7 @@ footer {
           Plataforma educativa y de simulación digital para impulsar el conocimiento tributario y la formalización voluntaria de los arrendadores de inmuebles.
         </p>
         <p style="font-size: 0.78rem; color: #9ca3af;">
-          Desarrollada para brindar orientación clara, práctica y gratuita a la comunidad.
+          Desarrollada para brindar orientación clara, práctica y gratuita a la comunidad de Moche.
         </p>
       </div>
 
@@ -1371,14 +1467,7 @@ function setTab(tabId) {
   window.scrollTo({ top: 0, behavior: 'smooth' });
 }
 
-// --- 2. Calculadora Rápida Inicio ---
-function calcQuickHome() {
-  const rent = parseFloat(document.getElementById('homeRent').value) || 0;
-  const tax = Math.round(rent * 0.05);
-  document.getElementById('homeTax').textContent = 'S/ ' + tax.toFixed(2);
-}
-
-// --- 3. Simulador Formulario 1683 ---
+// --- 2. Simulador Formulario 1683 ---
 function runSimCalc() {
   const cur = document.getElementById('simCurrency').value;
   const rentRaw = parseFloat(document.getElementById('simRent').value) || 0;
@@ -1437,7 +1526,7 @@ function resetSimFields() {
   runSimCalc();
 }
 
-// --- 4. Calculadora y Multas ---
+// --- 3. Calculadora y Multas ---
 function runFullCalc() {
   const cur = document.getElementById('calcCur').value;
   const rentRaw = parseFloat(document.getElementById('calcRentInput').value) || 0;
@@ -1475,7 +1564,7 @@ function runMultaCalc() {
   document.getElementById('dispMultaFinal').textContent = 'S/ ' + finalMulta.toLocaleString('es-PE', { minimumFractionDigits: 2 });
 }
 
-// --- 5. Filtro Interactivo de Calendario 2026 ---
+// --- 4. Filtro Interactivo de Calendario 2026 ---
 const calData2026 = [{'periodo': 'Ene-26', 'd0': '16 Feb', 'd1': '17 Feb', 'd2': '18 Feb', 'd3': '18 Feb', 'd4': '19 Feb', 'd5': '19 Feb', 'd6': '20 Feb', 'd7': '20 Feb', 'd8': '23 Feb', 'd9': '23 Feb', 'buenos': '24 Feb'}, {'periodo': 'Feb-26', 'd0': '16 Mar', 'd1': '17 Mar', 'd2': '18 Mar', 'd3': '18 Mar', 'd4': '19 Mar', 'd5': '19 Mar', 'd6': '20 Mar', 'd7': '20 Mar', 'd8': '23 Mar', 'd9': '23 Mar', 'buenos': '24 Mar'}, {'periodo': 'Mar-26', 'd0': '17 Abr', 'd1': '20 Abr', 'd2': '21 Abr', 'd3': '21 Abr', 'd4': '22 Abr', 'd5': '22 Abr', 'd6': '23 Abr', 'd7': '23 Abr', 'd8': '24 Abr', 'd9': '24 Abr', 'buenos': '27 Abr'}, {'periodo': 'Abr-26', 'd0': '18 May', 'd1': '19 May', 'd2': '20 May', 'd3': '20 May', 'd4': '21 May', 'd5': '21 May', 'd6': '22 May', 'd7': '22 May', 'd8': '25 May', 'd9': '25 May', 'buenos': '26 May'}, {'periodo': 'May-26', 'd0': '15 Jun', 'd1': '16 Jun', 'd2': '17 Jun', 'd3': '17 Jun', 'd4': '18 Jun', 'd5': '18 Jun', 'd6': '19 Jun', 'd7': '19 Jun', 'd8': '22 Jun', 'd9': '22 Jun', 'buenos': '23 Jun'}, {'periodo': 'Jun-26', 'd0': '15 Jul', 'd1': '16 Jul', 'd2': '17 Jul', 'd3': '17 Jul', 'd4': '20 Jul', 'd5': '20 Jul', 'd6': '21 Jul', 'd7': '21 Jul', 'd8': '22 Jul', 'd9': '22 Jul', 'buenos': '24 Jul'}, {'periodo': 'Jul-26', 'd0': '18 Ago', 'd1': '19 Ago', 'd2': '20 Ago', 'd3': '20 Ago', 'd4': '21 Ago', 'd5': '21 Ago', 'd6': '24 Ago', 'd7': '24 Ago', 'd8': '25 Ago', 'd9': '25 Ago', 'buenos': '26 Ago'}, {'periodo': 'Ago-26', 'd0': '15 Set', 'd1': '16 Set', 'd2': '17 Set', 'd3': '17 Set', 'd4': '18 Set', 'd5': '18 Set', 'd6': '21 Set', 'd7': '21 Set', 'd8': '22 Set', 'd9': '22 Set', 'buenos': '23 Set'}, {'periodo': 'Set-26', 'd0': '16 Oct', 'd1': '19 Oct', 'd2': '20 Oct', 'd3': '20 Oct', 'd4': '21 Oct', 'd5': '21 Oct', 'd6': '22 Oct', 'd7': '22 Oct', 'd8': '23 Oct', 'd9': '23 Oct', 'buenos': '26 Oct'}, {'periodo': 'Oct-26', 'd0': '16 Nov', 'd1': '17 Nov', 'd2': '18 Nov', 'd3': '18 Nov', 'd4': '19 Nov', 'd5': '19 Nov', 'd6': '20 Nov', 'd7': '20 Nov', 'd8': '23 Nov', 'd9': '23 Nov', 'buenos': '24 Nov'}, {'periodo': 'Nov-26', 'd0': '17 Dic', 'd1': '18 Dic', 'd2': '21 Dic', 'd3': '21 Dic', 'd4': '22 Dic', 'd5': '22 Dic', 'd6': '23 Dic', 'd7': '23 Dic', 'd8': '24 Dic', 'd9': '24 Dic', 'buenos': '28 Dic'}, {'periodo': 'Dic-26', 'd0': '18 Ene', 'd1': '19 Ene', 'd2': '20 Ene', 'd3': '20 Ene', 'd4': '21 Ene', 'd5': '21 Ene', 'd6': '22 Ene', 'd7': '22 Ene', 'd8': '25 Ene', 'd9': '25 Ene', 'buenos': '26 Ene'}];
 
 function filterDigit(digit) {
@@ -1511,7 +1600,6 @@ function filterDigit(digit) {
 
 // Inicialización al cargar
 window.addEventListener('load', () => {
-  calcQuickHome();
   runSimCalc();
   runFullCalc();
   runMultaCalc();
