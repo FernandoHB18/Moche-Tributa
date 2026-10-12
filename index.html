@@ -235,12 +235,6 @@ main {
   gap: 20px;
 }
 
-.grid-4 {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 18px;
-}
-
 .card {
   background: var(--white);
   border: 1px solid var(--primary-border);
@@ -280,7 +274,6 @@ main {
   line-height: 1.55;
 }
 
-/* Bloques Destacados */
 .banner-orange {
   background: linear-gradient(135deg, #fff7ed 0%, #ffedd5 100%);
   border: 2px solid var(--primary-border);
@@ -303,117 +296,139 @@ main {
   line-height: 1.6;
 }
 
-/* Controles de Formulario */
-.form-group {
-  margin-bottom: 16px;
-}
-.form-group label {
-  display: block;
-  font-size: 0.88rem;
-  font-weight: bold;
-  color: var(--black);
-  margin-bottom: 6px;
-}
-.form-control {
-  width: 100%;
-  padding: 10px 14px;
-  font-size: 0.95rem;
-  border: 1px solid var(--border);
-  border-radius: var(--radius-sm);
-  outline: none;
-  background: var(--white);
-  color: var(--black);
-}
-.form-control:focus {
-  border-color: var(--primary);
-  box-shadow: 0 0 0 3px rgba(234, 88, 12, 0.2);
-}
-.form-note {
-  font-size: 0.78rem;
-  color: var(--orange-dark-text);
-  margin-top: 4px;
-}
-
-/* Simulador Formulario 1683 */
-.sim-container {
+/* FORMULARIO SIMULADOR SUNAT 1683 EXACTO A LA IMAGEN */
+.sunat-mockup-wrapper {
   background: var(--white);
   border: 2px solid var(--primary);
   border-radius: var(--radius);
   box-shadow: var(--shadow-md);
+  margin-bottom: 30px;
   overflow: hidden;
-  margin-bottom: 26px;
-}
-.sim-header {
-  background: var(--primary);
-  color: var(--white);
-  padding: 14px 20px;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  flex-wrap: wrap;
-  gap: 10px;
-}
-.sim-header-title {
-  font-weight: bold;
-  font-size: 1.1rem;
-  display: flex;
-  align-items: center;
-  gap: 10px;
-}
-.sim-badge {
-  background: var(--white);
-  color: var(--primary);
-  padding: 2px 8px;
-  border-radius: 4px;
-  font-size: 0.75rem;
-  font-weight: bold;
-}
-.sim-subbar {
-  background: var(--primary-subtle);
-  border-bottom: 1px solid var(--primary-border);
-  padding: 10px 20px;
-  font-size: 0.88rem;
-  font-weight: bold;
-  color: var(--primary-dark);
-  display: flex;
-  justify-content: space-between;
-}
-.sim-body {
-  padding: 24px;
-  background: #fafafa;
-}
-.sim-panel {
-  background: var(--white);
-  border: 1px solid var(--primary-border);
-  border-radius: var(--radius-sm);
-  padding: 20px;
-}
-.sim-panel-title {
-  font-size: 0.95rem;
-  font-weight: bold;
-  color: var(--primary-dark);
-  border-bottom: 2px solid var(--primary);
-  padding-bottom: 6px;
-  margin-bottom: 16px;
 }
 
-.sim-row {
+.sunat-mockup-header {
+  background: var(--primary);
+  color: var(--white);
+  padding: 12px 20px;
+  font-weight: bold;
+  font-size: 1.05rem;
   display: flex;
   justify-content: space-between;
-  padding: 9px 0;
-  border-bottom: 1px dashed var(--border);
-  font-size: 0.9rem;
+  align-items: center;
+}
+
+.sunat-mockup-body {
+  padding: 24px;
+  background: var(--white);
+}
+
+.sunat-table-form {
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0 10px;
+}
+
+.sunat-table-form tr td {
+  vertical-align: middle;
+  padding: 4px 6px;
+}
+
+.sunat-lbl-td {
+  width: 38%;
+  font-size: 0.92rem;
+  font-weight: bold;
   color: var(--black);
 }
-.sim-row.total {
-  background: var(--primary-subtle);
-  padding: 12px 14px;
-  border-radius: var(--radius-sm);
-  border-bottom: none;
+
+.sunat-casilla-td {
+  width: 70px;
+  text-align: center;
+}
+
+.sunat-casilla-box {
+  background: #e5e7eb;
+  border: 1px solid #9ca3af;
+  color: var(--black);
   font-weight: bold;
-  color: var(--primary-dark);
-  font-size: 1.15rem;
-  margin-top: 10px;
+  font-size: 0.88rem;
+  padding: 6px 10px;
+  border-radius: 3px;
+  text-align: center;
+  display: inline-block;
+  width: 58px;
+}
+
+.sunat-input-td {
+  width: 54%;
+}
+
+.sunat-input {
+  width: 100%;
+  padding: 9px 12px;
+  font-size: 0.92rem;
+  border: 1px solid #9ca3af;
+  border-radius: 3px;
+  background: var(--white);
+  color: var(--black);
+  outline: none;
+}
+.sunat-input:focus {
+  border-color: var(--primary);
+  box-shadow: 0 0 0 2px rgba(234, 88, 12, 0.2);
+}
+.sunat-input-calc {
+  background: #f3f4f6;
+  font-weight: bold;
+  color: var(--primary);
+}
+
+/* Recordatorio de Conceptos */
+.reminder-box {
+  background: var(--primary-subtle);
+  border: 2px solid var(--primary);
+  border-radius: var(--radius);
+  padding: 22px;
+  margin-top: 26px;
+}
+
+.reminder-box h4 {
+  font-size: 1.1rem;
+  color: var(--primary);
+  font-weight: bold;
+  margin-bottom: 10px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+/* Explicación de la Tasa 1ra Categoría */
+.rate-methods-box {
+  background: var(--white);
+  border: 2px solid var(--primary-border);
+  border-radius: var(--radius);
+  padding: 22px;
+  margin-top: 26px;
+}
+
+.rate-methods-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+  margin-top: 14px;
+}
+
+.method-card {
+  background: var(--primary-subtle);
+  border: 1px solid var(--primary-border);
+  border-radius: var(--radius-sm);
+  padding: 16px;
+}
+
+.method-card h5 {
+  font-size: 0.98rem;
+  color: var(--primary);
+  font-weight: bold;
+  margin-bottom: 6px;
 }
 
 /* Ticket Constancia Virtual */
@@ -586,7 +601,11 @@ footer {
 }
 
 @media (max-width: 850px) {
-  .grid-2, .grid-3, .grid-4, .footer-wrap { grid-template-columns: 1fr; }
+  .grid-2, .grid-3, .rate-methods-grid, .footer-wrap { grid-template-columns: 1fr; }
+  .sunat-lbl-td { width: 100%; display: block; margin-bottom: 2px; }
+  .sunat-casilla-td { display: inline-block; width: auto; margin-right: 6px; }
+  .sunat-input-td { display: block; width: 100%; margin-top: 4px; }
+  .sunat-table-form tr { display: block; margin-bottom: 14px; }
   .tab-btn { padding: 12px 12px; font-size: 0.88rem; }
 }
 </style>
@@ -608,7 +627,7 @@ footer {
       </div>
     </div>
 
-    <!-- 5 Pestañas Solicitadas -->
+    <!-- 5 Pestañas Exactas -->
     <nav class="nav-tabs-bar">
       <div class="tabs-wrapper">
         <button class="tab-btn active" id="btn-tab-inicio" onclick="setTab('inicio')">
@@ -650,7 +669,6 @@ footer {
     </div>
   </div>
 
-  <!-- Bloque 1: Concepto e Importancia del RUC -->
   <div class="page-heading" style="border-bottom: none; margin-bottom: 12px;">
     <h3 class="page-title" style="font-size: 1.45rem;">
       1. El Registro Único de Contribuyentes (RUC) y su Importancia
@@ -681,7 +699,6 @@ footer {
     </div>
   </div>
 
-  <!-- Bloque 2: Estados del RUC y la Condición de "HABIDO" -->
   <div class="page-heading" style="border-bottom: none; margin-bottom: 12px;">
     <h3 class="page-title" style="font-size: 1.45rem;">
       2. Estados del RUC y la Condición Fundamental de "HABIDO"
@@ -720,7 +737,6 @@ footer {
     </div>
   </div>
 
-  <!-- Bloque 3: Capacitación, Asesoría Contable y SUNAT -->
   <div class="page-heading" style="border-bottom: none; margin-bottom: 12px;">
     <h3 class="page-title" style="font-size: 1.45rem;">
       3. Capacitación y Asesoría Contable: Conoce tus Beneficios y Sanciones
@@ -739,7 +755,7 @@ footer {
       </p>
       <ul style="padding-left: 20px; font-size: 0.92rem; color: var(--black); line-height: 1.6; margin-top: 8px;">
         <li>Identificar la fecha exacta de tu vencimiento mensual según el último dígito de tu RUC.</li>
-        <li>Calcular con exactitud el 5% mensual y entender la renta ficta en caso de ceder inmuebles a familiares.</li>
+        <li>Calcular con exactitud la tasa de 1.ª categoría y entender la renta ficta en caso de ceder inmuebles a familiares.</li>
         <li>Garantizar que tus contratos de alquiler incluyan cláusulas de protección legal (desalojo express).</li>
       </ul>
     </div>
@@ -765,7 +781,6 @@ footer {
     </div>
   </div>
 
-  <!-- Bloque 4: Aplicativos Digitales de SUNAT y su Manejo Adecuado -->
   <div class="page-heading" style="border-bottom: none; margin-bottom: 12px;">
     <h3 class="page-title" style="font-size: 1.45rem;">
       4. Aplicativos de SUNAT: Herramientas para Cumplir sin Errores
@@ -783,7 +798,7 @@ footer {
         Es el portal virtual principal de SUNAT. Ingresando con tu RUC, usuario y Clave SOL, accedes al <strong>Formulario Virtual 1683 - Arrendamiento</strong>.
       </p>
       <p style="margin-top: 8px; font-size: 0.88rem;">
-        Permite declarar en menos de 3 minutos, calcula automáticamente el 5% y te permite pagar directamente con tarjeta de débito/crédito o generar el Número de Pago SUNAT (NPS) para agentes.
+        Permite declarar en menos de 3 minutos, calcula automáticamente el tributo en soles y te permite pagar directamente con tarjeta de débito/crédito o generar el Número de Pago SUNAT (NPS) para agentes.
       </p>
     </div>
 
@@ -807,18 +822,17 @@ footer {
       <ul style="padding-left: 18px; font-size: 0.86rem; color: var(--black); line-height: 1.5; margin-top: 8px;">
         <li>Equivocación en el periodo tributario (mes que corresponde al alquiler).</li>
         <li>Errores en el número de documento de identidad del inquilino.</li>
-        <li>Confusión en la conversión del tipo de cambio si el alquiler está pactado en dólares.</li>
+        <li>Omitir conceptos gravados como mejoras no reembolsables o servicios asumidos.</li>
       </ul>
     </div>
   </div>
 
-  <!-- Llamado a la Acción para Practicar -->
   <div style="margin-top: 32px; background: var(--primary-subtle); border: 2px solid var(--primary); border-radius: var(--radius); padding: 24px; text-align: center;">
     <h3 style="color: var(--primary-dark); font-size: 1.25rem; margin-bottom: 8px;">
       ¿Quieres practicar cómo se declaran estos datos antes de hacerlo en SUNAT?
     </h3>
     <p style="font-size: 0.95rem; color: var(--black); max-width: 800px; margin: 0 auto 16px;">
-      Utiliza nuestro <strong>Simulador Formulario 1683</strong> en la siguiente pestaña. Podrás ingresar los datos del inquilino, el monto del alquiler y ver la generación de la constancia oficial de forma guiada y 100% gratuita.
+      Utiliza nuestro <strong>Simulador Formulario 1683</strong> con la interfaz oficial de SUNAT en la siguiente pestaña. Toda la emisión y cálculo se realiza estrictamente en <strong>moneda nacional (soles)</strong>.
     </p>
     <button class="btn btn-primary" onclick="setTab('simulador')">
       Abrir el Simulador Formulario 1683
@@ -829,174 +843,242 @@ footer {
     
 <div class="tab-panel" id="panel-simulador">
   <div class="page-heading">
-    <span class="page-tag">PRÁCTICA INTERACTIVA</span>
+    <span class="page-tag">ENTORNO OFICIAL SUNAT</span>
     <h1 class="page-title">Simulador Formulario 1683</h1>
     <p class="page-desc">
-      Practica aquí cómo declarar tu Impuesto a la Renta de Primera Categoría tal como aparece en SUNAT Operaciones en Línea. Los cálculos son automáticos y no genera ningún cobro real.
+      Interfaz de simulación diseñada con las casillas y campos oficiales del Formulario Virtual N.º 1683 de SUNAT. La emisión de recibos y declaraciones se realiza <strong>estrictamente en Soles (S/)</strong>.
     </p>
   </div>
 
-  <div class="sim-container">
-    <div class="sim-header">
-      <div class="sim-header-title">
-        SIMULADOR FORMULARIO VIRTUAL N.º 1683 <span class="sim-badge">MODO PRÁCTICA</span>
-      </div>
-      <div style="font-size: 0.84rem; color: var(--white);">
-        Arrendador: 10XXXXXXXXX | Moche, Trujillo
+  <!-- Contenedor del Formulario SUNAT Oficial -->
+  <div class="sunat-mockup-wrapper">
+    <div class="sunat-mockup-header">
+      <div>DECLARACIÓN Y PAGO: ARRENDAMIENTO PRIMERA CATEGORÍA</div>
+      <div style="font-size: 0.82rem; background: var(--white); color: var(--primary); padding: 2px 8px; border-radius: 4px;">
+        FORMULARIO VIRTUAL 1683
       </div>
     </div>
-    <div class="sim-subbar">
-      <div>Declaración y Pago de Renta de Primera Categoría (Arrendamiento)</div>
-      <div>Tributo: 3011 - Rta. 1.ª Cat. Alquileres</div>
-    </div>
 
-    <div class="sim-body">
-      <div class="grid-2">
-        <!-- Entrada de Datos -->
-        <div class="sim-panel">
-          <div class="sim-panel-title">1. Datos del Arrendamiento</div>
+    <div class="sunat-mockup-body">
+      <table class="sunat-table-form">
+        <!-- Período: [007] -->
+        <tr>
+          <td class="sunat-lbl-td">Período:</td>
+          <td class="sunat-casilla-td"><span class="sunat-casilla-box">007</span></td>
+          <td class="sunat-input-td">
+            <input type="text" id="c007" class="sunat-input" placeholder="mm/aaaa" value="01/2026" oninput="updateSimFromFields()">
+          </td>
+        </tr>
 
-          <div class="form-group">
-            <label for="simPeriod">Periodo Tributario (Mes y Año 2026):</label>
-            <select id="simPeriod" class="form-control" onchange="runSimCalc()">
-              <option value="01/2026">Enero 2026</option>
-              <option value="02/2026">Febrero 2026</option>
-              <option value="03/2026">Marzo 2026</option>
-              <option value="04/2026">Abril 2026</option>
-              <option value="05/2026">Mayo 2026</option>
-              <option value="06/2026">Junio 2026</option>
-              <option value="07/2026">Julio 2026</option>
-              <option value="08/2026">Agosto 2026</option>
-              <option value="09/2026">Setiembre 2026</option>
-              <option value="10/2026">Octubre 2026</option>
-              <option value="11/2026">Noviembre 2026</option>
-              <option value="12/2026">Diciembre 2026</option>
+        <!-- Tipo de Documento de Identidad de Inquilino: [499] -->
+        <tr>
+          <td class="sunat-lbl-td">Tipo de Documento de Identidad de Inquilino:</td>
+          <td class="sunat-casilla-td"><span class="sunat-casilla-box">499</span></td>
+          <td class="sunat-input-td">
+            <select id="c499" class="sunat-input" onchange="updateSimFromFields()">
+              <option value="DNI" selected>1 - DNI</option>
+              <option value="RUC">6 - RUC</option>
+              <option value="CE">4 - CARNÉ DE EXTRANJERÍA</option>
+              <option value="PAS">7 - PASAPORTE</option>
             </select>
-            <div class="form-note">Selecciona el mes que corresponde al alquiler a declarar.</div>
-          </div>
+          </td>
+        </tr>
 
-          <div class="grid-2">
-            <div class="form-group">
-              <label for="simDocType">Doc. del Inquilino:</label>
-              <select id="simDocType" class="form-control" onchange="runSimCalc()">
-                <option value="DNI">DNI (Persona Natural)</option>
-                <option value="RUC">RUC (Empresa/Negocio)</option>
-              </select>
-            </div>
-            <div class="form-group">
-              <label for="simDocNum">Número de Documento:</label>
-              <input type="text" id="simDocNum" class="form-control" value="46781290" maxlength="11" oninput="runSimCalc()">
-            </div>
-          </div>
+        <!-- Numero de documento de Identidad: [500] -->
+        <tr>
+          <td class="sunat-lbl-td">Numero de documento de Identidad:</td>
+          <td class="sunat-casilla-td"><span class="sunat-casilla-box">500</span></td>
+          <td class="sunat-input-td">
+            <input type="text" id="c500" class="sunat-input" placeholder="Ingrese nro de documento" value="46781290" maxlength="11" oninput="updateSimFromFields()">
+          </td>
+        </tr>
 
-          <div class="grid-2">
-            <div class="form-group">
-              <label for="simCurrency">Moneda:</label>
-              <select id="simCurrency" class="form-control" onchange="runSimCalc()">
-                <option value="PEN">Soles (S/)</option>
-                <option value="USD">Dólares (US$)</option>
-              </select>
-            </div>
-            <div class="form-group">
-              <label for="simRent">Importe del Alquiler:</label>
-              <input type="number" id="simRent" class="form-control" value="1200" min="50" step="50" oninput="runSimCalc()">
-            </div>
-          </div>
+        <!-- Nombre o Razón Social: (Sin casilla en la imagen) -->
+        <tr>
+          <td class="sunat-lbl-td">Nombre o Razón Social:</td>
+          <td class="sunat-casilla-td"></td>
+          <td class="sunat-input-td">
+            <input type="text" id="cNombre" class="sunat-input" style="background: #f3f4f6;" value="LOZANO CHÁVEZ JUAN CARLOS" readonly>
+          </td>
+        </tr>
 
-          <div class="form-group" id="simTcBox" style="display: none;">
-            <label for="simTcVal">Tipo de Cambio SBS (Venta):</label>
-            <input type="number" id="simTcVal" class="form-control" value="3.75" step="0.01" oninput="runSimCalc()">
-            <div class="form-note">SUNAT convierte automáticamente a moneda nacional.</div>
-          </div>
+        <!-- Tipo de Declaración: [005] -->
+        <tr>
+          <td class="sunat-lbl-td">Tipo de Declaración:</td>
+          <td class="sunat-casilla-td"><span class="sunat-casilla-box">005</span></td>
+          <td class="sunat-input-td">
+            <select id="c005" class="sunat-input">
+              <option value="Original" selected>Original</option>
+              <option value="Rectificatoria">Rectificatoria</option>
+            </select>
+          </td>
+        </tr>
 
-          <div class="form-group">
-            <label for="simAddress">Dirección del Predio Alquilado (en Moche):</label>
-            <input type="text" id="simAddress" class="form-control" value="Calle Grau N.° 412, Moche Pueblo">
-          </div>
-        </div>
+        <!-- Tipo de Bien: [061] -->
+        <tr>
+          <td class="sunat-lbl-td">Tipo de Bien:</td>
+          <td class="sunat-casilla-td"><span class="sunat-casilla-box">061</span></td>
+          <td class="sunat-input-td">
+            <select id="c061" class="sunat-input" onchange="updateSimFromFields()">
+              <option value="Predio" selected>1 - Predio (Casa, Departamento, Terreno, Local)</option>
+              <option value="BienMueble">2 - Bien Mueble (Vehículo, Maquinaria, Equipo)</option>
+              <option value="Subarriendo">3 - Subarrendamiento de Predio</option>
+              <option value="Otros">4 - Otros Bienes o Derechos</option>
+            </select>
+          </td>
+        </tr>
 
-        <!-- Determinación Automática -->
-        <div class="sim-panel" style="display: flex; flex-direction: column; justify-content: space-between;">
-          <div>
-            <div class="sim-panel-title">2. Liquidación del Impuesto</div>
+        <!-- Monto de alquiler en moneda nacional: [503] -->
+        <tr>
+          <td class="sunat-lbl-td">Monto de alquiler en moneda nacional (S/):</td>
+          <td class="sunat-casilla-td"><span class="sunat-casilla-box">503</span></td>
+          <td class="sunat-input-td">
+            <input type="number" id="c503" class="sunat-input" placeholder="Ingrese monto del alquiler" value="1200" min="0" step="50" oninput="updateSimFromFields()">
+          </td>
+        </tr>
 
-            <div class="sim-row">
-              <span>Renta Bruta en Soles:</span>
-              <strong id="dispSimGross">S/ 1,200.00</strong>
-            </div>
-            <div class="sim-row">
-              <span>Deducción de Ley (20%):</span>
-              <span id="dispSimDed" style="color: var(--primary); font-weight: bold;">- S/ 240.00</span>
-            </div>
-            <div class="sim-row">
-              <span>Renta Neta Legal (80%):</span>
-              <strong id="dispSimNet">S/ 960.00</strong>
-            </div>
-            <div class="sim-row">
-              <span>Tasa Efectiva:</span>
-              <strong style="color: var(--primary);">5% Directo</strong>
-            </div>
+        <!-- Tributo Resultante: [505] -->
+        <tr>
+          <td class="sunat-lbl-td">Tributo Resultante:</td>
+          <td class="sunat-casilla-td"><span class="sunat-casilla-box">505</span></td>
+          <td class="sunat-input-td">
+            <input type="text" id="c505" class="sunat-input sunat-input-calc" placeholder="Monto calculado del tributo resultante" value="S/ 60.00" readonly>
+          </td>
+        </tr>
 
-            <div class="sim-row total">
-              <span>MONTO A PAGAR A SUNAT:</span>
-              <span id="dispSimTax" style="font-size: 1.35rem; color: var(--primary);">S/ 60.00</span>
-            </div>
+        <!-- Interés moratorio: [506] -->
+        <tr>
+          <td class="sunat-lbl-td">Interés moratorio:</td>
+          <td class="sunat-casilla-td"><span class="sunat-casilla-box">506</span></td>
+          <td class="sunat-input-td">
+            <input type="number" id="c506" class="sunat-input" placeholder="Ingrese interés moratorio" value="0" min="0" oninput="updateSimFromFields()">
+          </td>
+        </tr>
 
-            <div style="font-size: 0.82rem; color: var(--black); margin-top: 14px; background: var(--primary-subtle); padding: 12px; border-radius: 6px; border: 1px solid var(--primary-border);">
-              • Al presionar <strong>"Validar y Emitir Constancia"</strong>, se generará una simulación exacta del comprobante que SUNAT entrega para certificar tu pago.
-            </div>
-          </div>
+        <!-- Monto a pagar: [508] -->
+        <tr>
+          <td class="sunat-lbl-td" style="font-size: 1rem; color: var(--primary);">Monto a pagar:</td>
+          <td class="sunat-casilla-td"><span class="sunat-casilla-box" style="border-color: var(--primary); background: #fed7aa; color: var(--primary-dark);">508</span></td>
+          <td class="sunat-input-td">
+            <input type="text" id="c508" class="sunat-input sunat-input-calc" style="font-size: 1.15rem; color: var(--primary-dark); border-color: var(--primary);" placeholder="Ingrese monto a pagar" value="S/ 60.00" readonly>
+          </td>
+        </tr>
+      </table>
 
-          <div style="display: flex; gap: 10px; margin-top: 20px;">
-            <button class="btn btn-outline" style="flex: 1;" onclick="resetSimFields()">Limpiar</button>
-            <button class="btn btn-primary" style="flex: 2; justify-content: center;" onclick="generateTicket()">
-              Validar y Emitir Constancia
-            </button>
-          </div>
+      <!-- Botones de Acción -->
+      <div style="display: flex; justify-content: flex-end; gap: 12px; margin-top: 20px; padding-top: 16px; border-top: 1px solid var(--border);">
+        <button class="btn btn-outline" onclick="resetForm1683()">Restablecer Casillas</button>
+        <button class="btn btn-primary" onclick="emitForm1683Receipt()">
+          Validar y Emitir Recibo de Arrendamiento
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Explicación de la Tasa 1ra Categoría (Los 2 Métodos que dan lo mismo) -->
+  <div class="rate-methods-box">
+    <h4 style="font-size: 1.15rem; color: var(--primary); font-weight: bold; margin-bottom: 6px;">
+      Explicación del Cálculo: Tasa 1.ª Categoría
+    </h4>
+    <p style="font-size: 0.92rem; color: var(--black);">
+      Para determinar el <strong>Tributo Resultante (Casilla 505)</strong>, la normativa tributaria permite dos procedimientos matemáticos que arrojan exactamente el mismo resultado:
+    </p>
+
+    <div class="rate-methods-grid">
+      <div class="method-card">
+        <h5>Método 1: Aplicación Directa del 5%</h5>
+        <p style="font-size: 0.88rem; color: var(--black); margin-top: 4px;">
+          Se calcula directamente el <strong>5% sobre el ingreso bruto</strong> del alquiler pactado en moneda nacional (Casilla 503).
+        </p>
+        <div style="background: var(--white); padding: 8px 12px; border-radius: 4px; margin-top: 8px; font-weight: bold; color: var(--primary);">
+          Cálculo: <span id="calcM1Demo">S/ 1,200 × 5% = S/ 60.00</span>
         </div>
       </div>
 
-      <!-- Constancia Generada -->
-      <div id="simTicket" class="ticket-box">
-        <div class="ticket-title">
-          <h4>SUNAT - CONSTANCIA DE DECLARACIÓN Y PAGO</h4>
-          <p style="font-size: 0.85rem; color: var(--black);">FORMULARIO VIRTUAL N.º 1683 - ARRENDAMIENTO PRIMERA CATEGORÍA</p>
-          <div style="color: var(--primary); font-weight: bold; font-size: 0.88rem; margin-top: 4px;">
-            OPERACIÓN SIMULADA CORRECTAMENTE | N.º DE ORDEN: <span id="tickNum">91402834</span>
-          </div>
-        </div>
-
-        <div class="ticket-grid">
-          <div class="ticket-item">
-            <label>ARRENDADOR (PROPIETARIO):</label>
-            <span>LOZANO VÁSQUEZ CARLOS (RUC 10459821345)</span>
-          </div>
-          <div class="ticket-item">
-            <label>PERIODO TRIBUTARIO:</label>
-            <span id="tickPer">01/2026</span>
-          </div>
-          <div class="ticket-item">
-            <label>INQUILINO:</label>
-            <span id="tickTen">DNI 46781290</span>
-          </div>
-          <div class="ticket-item">
-            <label>MONTO DEL ALQUILER:</label>
-            <span id="tickAmount">S/ 1,200.00</span>
-          </div>
-          <div class="ticket-item">
-            <label>IMPORTE TOTAL PAGADO:</label>
-            <span id="tickTaxPaid" style="color: var(--primary); font-size: 1.15rem; font-weight: bold;">S/ 60.00</span>
-          </div>
-          <div class="ticket-item">
-            <label>FECHA Y HORA:</label>
-            <span id="tickDateTime">11/10/2026 23:15:00</span>
-          </div>
-        </div>
-
-        <div style="background: var(--primary-subtle); border: 1px solid var(--primary-border); border-radius: 6px; padding: 12px; font-size: 0.85rem; color: var(--black); text-align: center;">
-          <strong>ENTREGA DE COMPROBANTE:</strong> Entrega una copia impresa o digital de esta constancia a tu inquilino. Le servirá como comprobante oficial para deducir hasta 3 UIT de sus impuestos.
+      <div class="method-card">
+        <h5>Método 2: Descuento del 20% y Tasa del 6.25%</h5>
+        <p style="font-size: 0.88rem; color: var(--black); margin-top: 4px;">
+          Se deduce el 20% de ley al ingreso bruto para obtener la Renta Neta legal (80%), y a ese saldo se le aplica la tasa del <strong>6.25%</strong>.
+        </p>
+        <div style="background: var(--white); padding: 8px 12px; border-radius: 4px; margin-top: 8px; font-weight: bold; color: var(--primary);">
+          Cálculo: <span id="calcM2Demo">S/ 960 (Renta Neta) × 6.25% = S/ 60.00</span>
         </div>
       </div>
+    </div>
+    <div style="font-size: 0.82rem; color: var(--orange-dark-text); font-weight: bold; margin-top: 10px; text-align: center;">
+      * Como puedes apreciar, ambos métodos resultan en el mismo monto a pagar. En el Formulario 1683 se liquida directamente el 5%.
+    </div>
+  </div>
+
+  <!-- Recordatorio de Conceptos de Arrendamiento (Casilla 503) -->
+  <div class="reminder-box">
+    <h4>
+      <span>⚠️</span> Recordatorio Importante: Conceptos a Incluir en la Casilla 503
+    </h4>
+    <p style="font-size: 0.92rem; color: var(--black); margin-bottom: 12px;">
+      Al momento de ingresar el <strong>Monto de alquiler en moneda nacional (Casilla 503)</strong> y emitir el recibo de arrendamiento, el arrendador debe computar la totalidad de los conceptos que forman parte de la renta de primera categoría:
+    </p>
+
+    <div class="grid-2" style="font-size: 0.9rem; color: var(--black); line-height: 1.55;">
+      <div>
+        • <strong>Alquiler Pactado (Merced Conductiva):</strong> El pago mensual regular acordado por el uso del predio.<br><br>
+        • <strong>Mejoras Introducidas No Reembolsables:</strong> El valor de las construcciones, remodelaciones o acabados que el inquilino haya realizado en el inmueble y que queden a beneficio del propietario sin que este deba reintegrar el dinero.<br><br>
+        • <strong>Subarrendamiento:</strong> En caso de que se subalquile un bien, la renta bruta gravable para el subarrendador es la diferencia entre lo que cobra al subinquilino y lo que paga al propietario principal.
+      </div>
+      <div>
+        • <strong>Alquiler de Muebles o Enseres:</strong> Si el inmueble se arrienda amoblado, con artefactos o maquinarias, el cobro total conjunto forma parte de la renta gravada de primera categoría.<br><br>
+        • <strong>Tributos o Servicios Asumidos por el Inquilino:</strong> Si por contrato el inquilino asume el pago de tributos que legalmente le corresponden al arrendador (por ejemplo, el Impuesto Predial), dicho monto se adiciona al alquiler bruto computable.
+      </div>
+    </div>
+  </div>
+
+  <!-- Constancia Virtual / Recibo Oficial Simulado -->
+  <div id="simTicketBox" class="ticket-box">
+    <div class="ticket-title">
+      <h4>SUNAT - CONSTANCIA DE DECLARACIÓN Y PAGO</h4>
+      <p style="font-size: 0.85rem; color: var(--black);">FORMULARIO VIRTUAL N.º 1683 - RECIBO POR ARRENDAMIENTO</p>
+      <div style="color: var(--primary); font-weight: bold; font-size: 0.88rem; margin-top: 4px;">
+        OPERACIÓN SIMULADA CORRECTAMENTE EN MONEDA NACIONAL (SOLES)
+      </div>
+    </div>
+
+    <div class="ticket-grid">
+      <div class="ticket-item">
+        <label>RUC DEL ARRENDADOR:</label>
+        <span>10459821345 - LOZANO VÁSQUEZ CARLOS</span>
+      </div>
+      <div class="ticket-item">
+        <label>PERÍODO TRIBUTARIO (CASILLA 007):</label>
+        <span id="resPeriod">01/2026</span>
+      </div>
+      <div class="ticket-item">
+        <label>INQUILINO (CASILLAS 499 Y 500):</label>
+        <span id="resTenant">DNI 46781290 - LOZANO CHÁVEZ JUAN CARLOS</span>
+      </div>
+      <div class="ticket-item">
+        <label>TIPO DE BIEN (CASILLA 061):</label>
+        <span id="resTipoBien">PREDIO</span>
+      </div>
+      <div class="ticket-item">
+        <label>MONTO DEL ALQUILER EN SOLES (CASILLA 503):</label>
+        <span id="resRent">S/ 1,200.00</span>
+      </div>
+      <div class="ticket-item">
+        <label>TRIBUTO RESULTANTE (CASILLA 505):</label>
+        <span id="resTax" style="color: var(--primary); font-size: 1.15rem;">S/ 60.00</span>
+      </div>
+      <div class="ticket-item">
+        <label>INTERÉS MORATORIO (CASILLA 506):</label>
+        <span id="resInteres">S/ 0.00</span>
+      </div>
+      <div class="ticket-item">
+        <label>TOTAL MONTO A PAGAR (CASILLA 508):</label>
+        <span id="resTotal" style="color: var(--primary); font-size: 1.2rem;">S/ 60.00</span>
+      </div>
+    </div>
+
+    <div style="background: var(--primary-subtle); border: 1px solid var(--primary-border); border-radius: 6px; padding: 14px; font-size: 0.85rem; color: var(--black); text-align: center;">
+      <strong>RECIBO VÁLIDO PARA EL INQUILINO:</strong> Esta constancia es el comprobante oficial que debes entregar a tu inquilino para acreditar el arrendamiento y permitirle descontar el 30% del alquiler en su propio Impuesto a la Renta de trabajo.
     </div>
   </div>
 </div>
@@ -1014,41 +1096,36 @@ footer {
   <div class="grid-2">
     <!-- Calculadora de Impuesto -->
     <div class="card">
-      <h2 style="font-size: 1.25rem; color: var(--primary); margin-bottom: 14px;">1. Cálculo del Pago Mensual (5%)</h2>
+      <h2 style="font-size: 1.25rem; color: var(--primary); margin-bottom: 14px;">1. Cálculo de la Tasa de 1.ª Categoría</h2>
+      <p style="font-size: 0.88rem; color: var(--black); margin-bottom: 12px;">
+        La declaración y el pago de arrendamiento se determinan y liquidan siempre en <strong>moneda nacional (Soles)</strong>:
+      </p>
       
       <div class="form-group">
-        <label for="calcCur">Moneda:</label>
-        <select id="calcCur" class="form-control" onchange="runFullCalc()">
-          <option value="PEN">Soles (S/)</option>
-          <option value="USD">Dólares (US$)</option>
-        </select>
-      </div>
-
-      <div class="form-group">
-        <label for="calcRentInput">Monto del Alquiler Mensual:</label>
+        <label for="calcRentInput">Monto del Alquiler en Moneda Nacional (S/):</label>
         <input type="number" id="calcRentInput" class="form-control" value="1500" min="0" step="50" oninput="runFullCalc()">
-      </div>
-
-      <div class="form-group" id="calcTcRow" style="display: none;">
-        <label for="calcTcVal">Tipo de Cambio SBS (Venta):</label>
-        <input type="number" id="calcTcVal" class="form-control" value="3.75" step="0.01" oninput="runFullCalc()">
+        <div class="form-note">Si tu contrato fue pactado en dólares, debes convertirlo a soles con el tipo de cambio venta oficial SBS antes de declarar.</div>
       </div>
 
       <div style="background: var(--primary-subtle); padding: 16px; border-radius: 6px; border: 1px solid var(--primary-border); margin-top: 18px;">
         <div class="sim-row">
-          <span>Alquiler en Soles:</span>
+          <span>Alquiler en Moneda Nacional (Casilla 503):</span>
           <strong id="calcGrossText">S/ 1,500.00</strong>
         </div>
         <div class="sim-row">
-          <span>Deducción de Ley (20%):</span>
+          <span>Deducción de Ley (20% del bruto):</span>
           <span id="calcDedText" style="color: var(--primary); font-weight: bold;">- S/ 300.00</span>
         </div>
         <div class="sim-row">
           <span>Renta Neta Legal (80%):</span>
           <strong id="calcNetText">S/ 1,200.00</strong>
         </div>
+        <div class="sim-row">
+          <span>Tasa de 1.ª Categoría:</span>
+          <strong>6.25% sobre R. Neta o 5% directo</strong>
+        </div>
         <div class="sim-row total">
-          <span>IMPUESTO MENSUAL A PAGAR:</span>
+          <span>IMPUESTO A PAGAR (CASILLA 505):</span>
           <span id="calcTaxText" style="color: var(--primary);">S/ 75.00</span>
         </div>
       </div>
@@ -1115,7 +1192,7 @@ footer {
         En el Perú, para rentas de primera categoría no se compran talonarios de recibos en imprentas. <strong>El propio Formulario 1683 o voucher bancario constituye el Recibo Oficial de Arrendamiento</strong>.
       </p>
       <ul style="padding-left: 20px; font-size: 0.92rem; color: var(--black); line-height: 1.6;">
-        <li>Si pagas en agente bancario (BCP, Banco de la Nación, BBVA, Interbank), el voucher que te entrega el cajero con el tributo 3011 es el recibo oficial.</li>
+        <li>Si pagas en agente bancario (BCP, Banco de la Nación, BBVA, Interbank), el voucher que te entrega el cajero con el tributo 3011 es el recibo oficial en soles.</li>
         <li>Si declaras por internet con Clave SOL, la constancia virtual que emite el sistema es tu comprobante en formato digital.</li>
         <li>Debes entregar el original o copia legible a tu inquilino cada mes.</li>
       </ul>
@@ -1155,7 +1232,6 @@ footer {
     </p>
   </div>
 
-  <!-- Selector Interactivo por Dígito -->
   <div class="calendar-selector-box">
     <label style="font-weight: bold; font-size: 1rem; color: var(--primary); display: block;">
       Selecciona el último dígito de tu RUC (0 al 9 o Buenos Contribuyentes):
@@ -1183,12 +1259,10 @@ footer {
         Revisa las fechas límites de pago para cada uno de los periodos del año 2026:
       </p>
       <div class="grid-3" id="selectedDigitDates" style="text-align: center;">
-        <!-- Se rellena dinámicamente con JS -->
       </div>
     </div>
   </div>
 
-  <!-- Tabla Completa Oficial 2026 (Fiel a la Imagen) -->
   <div class="page-heading" style="border-bottom: none; margin-top: 30px; margin-bottom: 12px;">
     <h3 style="font-size: 1.3rem; color: var(--primary);">
       Tabla Completa: Cronograma de Obligaciones Mensuales - Ejercicio 2026
@@ -1467,80 +1541,59 @@ function setTab(tabId) {
   window.scrollTo({ top: 0, behavior: 'smooth' });
 }
 
-// --- 2. Simulador Formulario 1683 ---
-function runSimCalc() {
-  const cur = document.getElementById('simCurrency').value;
-  const rentRaw = parseFloat(document.getElementById('simRent').value) || 0;
-  const tcRow = document.getElementById('simTcBox');
+// --- 2. Lógica del Simulador Formulario 1683 Oficial (Casillas SUNAT en Soles) ---
+function updateSimFromFields() {
+  const rentSoles = parseFloat(document.getElementById('c503').value) || 0;
+  const mora = parseFloat(document.getElementById('c506').value) || 0;
 
-  let rentPEN = rentRaw;
-  if (cur === 'USD') {
-    tcRow.style.display = 'block';
-    const tc = parseFloat(document.getElementById('simTcVal').value) || 3.75;
-    rentPEN = rentRaw * tc;
-  } else {
-    tcRow.style.display = 'none';
-  }
+  // Tasa de 1ra categoría: 5% directo de la renta bruta (o 6.25% sobre el 80% de renta neta)
+  const tributoResultante = Math.round(rentSoles * 0.05);
+  const montoAPagar = tributoResultante + mora;
 
-  const ded = rentPEN * 0.20;
-  const net = rentPEN * 0.80;
-  const tax = Math.round(rentPEN * 0.05);
+  // Actualizar casillas 505 y 508
+  document.getElementById('c505').value = 'S/ ' + tributoResultante.toFixed(2);
+  document.getElementById('c508').value = 'S/ ' + montoAPagar.toFixed(2);
 
-  document.getElementById('dispSimGross').textContent = 'S/ ' + rentPEN.toLocaleString('es-PE', { minimumFractionDigits: 2 });
-  document.getElementById('dispSimDed').textContent = '- S/ ' + ded.toLocaleString('es-PE', { minimumFractionDigits: 2 });
-  document.getElementById('dispSimNet').textContent = 'S/ ' + net.toLocaleString('es-PE', { minimumFractionDigits: 2 });
-  document.getElementById('dispSimTax').textContent = 'S/ ' + tax.toLocaleString('es-PE', { minimumFractionDigits: 2 });
+  // Actualizar demostración de métodos
+  const rentaNeta = (rentSoles * 0.80).toFixed(2);
+  document.getElementById('calcM1Demo').textContent = `S/ ${rentSoles.toFixed(2)} × 5% = S/ ${tributoResultante.toFixed(2)}`;
+  document.getElementById('calcM2Demo').textContent = `S/ ${rentaNeta} (Renta Neta) × 6.25% = S/ ${tributoResultante.toFixed(2)}`;
 }
 
-function generateTicket() {
-  const cur = document.getElementById('simCurrency').value;
-  const rentRaw = parseFloat(document.getElementById('simRent').value) || 0;
-  const docType = document.getElementById('simDocType').value;
-  const docNum = document.getElementById('simDocNum').value || '46781290';
-  const period = document.getElementById('simPeriod').value;
-  const tc = parseFloat(document.getElementById('simTcVal').value) || 3.75;
+function emitForm1683Receipt() {
+  const period = document.getElementById('c007').value || '01/2026';
+  const docType = document.getElementById('c499').value;
+  const docNum = document.getElementById('c500').value || '46781290';
+  const nombre = document.getElementById('cNombre').value;
+  const bien = document.getElementById('c061').options[document.getElementById('c061').selectedIndex].text;
+  const rentSoles = parseFloat(document.getElementById('c503').value) || 0;
+  const mora = parseFloat(document.getElementById('c506').value) || 0;
+  const tributo = Math.round(rentSoles * 0.05);
+  const total = tributo + mora;
 
-  let rentPEN = rentRaw;
-  if (cur === 'USD') {
-    rentPEN = rentRaw * tc;
-  }
-  const tax = Math.round(rentPEN * 0.05);
+  document.getElementById('resPeriod').textContent = period;
+  document.getElementById('resTenant').textContent = `${docType} ${docNum} - ${nombre}`;
+  document.getElementById('resTipoBien').textContent = bien;
+  document.getElementById('resRent').textContent = 'S/ ' + rentSoles.toLocaleString('es-PE', { minimumFractionDigits: 2 });
+  document.getElementById('resTax').textContent = 'S/ ' + tributo.toFixed(2);
+  document.getElementById('resInteres').textContent = 'S/ ' + mora.toFixed(2);
+  document.getElementById('resTotal').textContent = 'S/ ' + total.toFixed(2);
 
-  document.getElementById('tickPer').textContent = period;
-  document.getElementById('tickTen').textContent = `${docType} ${docNum}`;
-  document.getElementById('tickAmount').textContent = (cur === 'USD' ? 'US$ ' + rentRaw.toFixed(2) + ' (S/ ' + rentPEN.toFixed(2) + ')' : 'S/ ' + rentPEN.toFixed(2));
-  document.getElementById('tickTaxPaid').textContent = 'S/ ' + tax.toFixed(2);
-  document.getElementById('tickNum').textContent = Math.floor(10000000 + Math.random() * 90000000);
-
-  const now = new Date();
-  document.getElementById('tickDateTime').textContent = now.toLocaleDateString('es-PE') + ' ' + now.toLocaleTimeString('es-PE');
-
-  const ticket = document.getElementById('simTicket');
+  const ticket = document.getElementById('simTicketBox');
   ticket.classList.add('show');
   ticket.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
 }
 
-function resetSimFields() {
-  document.getElementById('simRent').value = '1200';
-  document.getElementById('simTicket').classList.remove('show');
-  runSimCalc();
+function resetForm1683() {
+  document.getElementById('c503').value = '1200';
+  document.getElementById('c506').value = '0';
+  document.getElementById('simTicketBox').classList.remove('show');
+  updateSimFromFields();
 }
 
-// --- 3. Calculadora y Multas ---
+// --- 3. Calculadora de Pago y Multas ---
 function runFullCalc() {
-  const cur = document.getElementById('calcCur').value;
-  const rentRaw = parseFloat(document.getElementById('calcRentInput').value) || 0;
-  const tcRow = document.getElementById('calcTcRow');
-
-  let rentPEN = rentRaw;
-  if (cur === 'USD') {
-    tcRow.style.display = 'block';
-    const tc = parseFloat(document.getElementById('calcTcVal').value) || 3.75;
-    rentPEN = rentRaw * tc;
-  } else {
-    tcRow.style.display = 'none';
-  }
-
+  const rentPEN = parseFloat(document.getElementById('calcRentInput').value) || 0;
   const ded = rentPEN * 0.20;
   const net = rentPEN * 0.80;
   const tax = Math.round(rentPEN * 0.05);
@@ -1564,7 +1617,7 @@ function runMultaCalc() {
   document.getElementById('dispMultaFinal').textContent = 'S/ ' + finalMulta.toLocaleString('es-PE', { minimumFractionDigits: 2 });
 }
 
-// --- 4. Filtro Interactivo de Calendario 2026 ---
+// --- 4. Filtro de Calendario 2026 ---
 const calData2026 = [{'periodo': 'Ene-26', 'd0': '16 Feb', 'd1': '17 Feb', 'd2': '18 Feb', 'd3': '18 Feb', 'd4': '19 Feb', 'd5': '19 Feb', 'd6': '20 Feb', 'd7': '20 Feb', 'd8': '23 Feb', 'd9': '23 Feb', 'buenos': '24 Feb'}, {'periodo': 'Feb-26', 'd0': '16 Mar', 'd1': '17 Mar', 'd2': '18 Mar', 'd3': '18 Mar', 'd4': '19 Mar', 'd5': '19 Mar', 'd6': '20 Mar', 'd7': '20 Mar', 'd8': '23 Mar', 'd9': '23 Mar', 'buenos': '24 Mar'}, {'periodo': 'Mar-26', 'd0': '17 Abr', 'd1': '20 Abr', 'd2': '21 Abr', 'd3': '21 Abr', 'd4': '22 Abr', 'd5': '22 Abr', 'd6': '23 Abr', 'd7': '23 Abr', 'd8': '24 Abr', 'd9': '24 Abr', 'buenos': '27 Abr'}, {'periodo': 'Abr-26', 'd0': '18 May', 'd1': '19 May', 'd2': '20 May', 'd3': '20 May', 'd4': '21 May', 'd5': '21 May', 'd6': '22 May', 'd7': '22 May', 'd8': '25 May', 'd9': '25 May', 'buenos': '26 May'}, {'periodo': 'May-26', 'd0': '15 Jun', 'd1': '16 Jun', 'd2': '17 Jun', 'd3': '17 Jun', 'd4': '18 Jun', 'd5': '18 Jun', 'd6': '19 Jun', 'd7': '19 Jun', 'd8': '22 Jun', 'd9': '22 Jun', 'buenos': '23 Jun'}, {'periodo': 'Jun-26', 'd0': '15 Jul', 'd1': '16 Jul', 'd2': '17 Jul', 'd3': '17 Jul', 'd4': '20 Jul', 'd5': '20 Jul', 'd6': '21 Jul', 'd7': '21 Jul', 'd8': '22 Jul', 'd9': '22 Jul', 'buenos': '24 Jul'}, {'periodo': 'Jul-26', 'd0': '18 Ago', 'd1': '19 Ago', 'd2': '20 Ago', 'd3': '20 Ago', 'd4': '21 Ago', 'd5': '21 Ago', 'd6': '24 Ago', 'd7': '24 Ago', 'd8': '25 Ago', 'd9': '25 Ago', 'buenos': '26 Ago'}, {'periodo': 'Ago-26', 'd0': '15 Set', 'd1': '16 Set', 'd2': '17 Set', 'd3': '17 Set', 'd4': '18 Set', 'd5': '18 Set', 'd6': '21 Set', 'd7': '21 Set', 'd8': '22 Set', 'd9': '22 Set', 'buenos': '23 Set'}, {'periodo': 'Set-26', 'd0': '16 Oct', 'd1': '19 Oct', 'd2': '20 Oct', 'd3': '20 Oct', 'd4': '21 Oct', 'd5': '21 Oct', 'd6': '22 Oct', 'd7': '22 Oct', 'd8': '23 Oct', 'd9': '23 Oct', 'buenos': '26 Oct'}, {'periodo': 'Oct-26', 'd0': '16 Nov', 'd1': '17 Nov', 'd2': '18 Nov', 'd3': '18 Nov', 'd4': '19 Nov', 'd5': '19 Nov', 'd6': '20 Nov', 'd7': '20 Nov', 'd8': '23 Nov', 'd9': '23 Nov', 'buenos': '24 Nov'}, {'periodo': 'Nov-26', 'd0': '17 Dic', 'd1': '18 Dic', 'd2': '21 Dic', 'd3': '21 Dic', 'd4': '22 Dic', 'd5': '22 Dic', 'd6': '23 Dic', 'd7': '23 Dic', 'd8': '24 Dic', 'd9': '24 Dic', 'buenos': '28 Dic'}, {'periodo': 'Dic-26', 'd0': '18 Ene', 'd1': '19 Ene', 'd2': '20 Ene', 'd3': '20 Ene', 'd4': '21 Ene', 'd5': '21 Ene', 'd6': '22 Ene', 'd7': '22 Ene', 'd8': '25 Ene', 'd9': '25 Ene', 'buenos': '26 Ene'}];
 
 function filterDigit(digit) {
@@ -1581,11 +1634,9 @@ function filterDigit(digit) {
     titleEl.textContent = 'Cronograma de Vencimientos 2026 para RUC terminado en dígito: ' + digit;
   }
 
-  // Resaltar columna en tabla
   document.querySelectorAll('.cal-table td').forEach(td => td.classList.remove('highlight-col'));
   document.querySelectorAll('.col-' + (digit === 'buenos' ? 'buenos' : 'd' + digit)).forEach(td => td.classList.add('highlight-col'));
 
-  // Rellenar tarjetas resumen
   let cardsHtml = '';
   calData2026.forEach(item => {
     cardsHtml += `
@@ -1598,9 +1649,8 @@ function filterDigit(digit) {
   container.innerHTML = cardsHtml;
 }
 
-// Inicialización al cargar
 window.addEventListener('load', () => {
-  runSimCalc();
+  updateSimFromFields();
   runFullCalc();
   runMultaCalc();
   filterDigit(0);
